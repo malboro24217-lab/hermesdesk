@@ -644,12 +644,15 @@
 
   // Real outputs from the live prototype, saved on 8 Oct 2026, shown only if the live demo is unavailable.
   const saved = [
-    { category: 'lead', urgency: 'high', route_to: 'sales_agent',
-      summary_en: 'Buyer asks if a high-floor 2-bedroom unit in the project is still available, its price, and whether they can view it tomorrow afternoon.',
-      draft_vi: 'Chào anh, cảm ơn anh đã quan tâm đến căn hộ 2 phòng ngủ tầng cao tại dự án. Hiện tại em chưa có đủ thông tin về tình trạng còn trống và giá bán, nên em sẽ kiểm tra lại và xác nhận với anh sớm nhất. Về lịch xem nhà chiều mai, em sẽ sắp xếp với bộ phận kinh doanh và báo lại để anh chủ động thời gian. Anh cho em xin số điện thoại để em liên hệ trực tiếp ạ.' },
+    { category: 'lead', urgency: 'high', route_to: 'coordinator',
+      summary_en: 'A new resident of a 2-bedroom apartment, referred by a sales agent, asks the price for installing Mesh wifi and whether installation can happen tomorrow.',
+      draft_vi: 'Chào chị, cảm ơn chị đã liên hệ và tin tưởng dịch vụ của chúng tôi. Về giá lắp đặt wifi Mesh và lịch lắp vào ngày mai, bên em sẽ kiểm tra tình trạng lịch và báo chính xác cho chị trong thời gian sớm nhất. Chị vui lòng cho em xin tên và số điện thoại liên hệ cũng như địa chỉ căn hộ để em hỗ trợ nhanh hơn ạ. Trân trọng!' },
+    { category: 'complaint', urgency: 'high', route_to: 'team_lead',
+      summary_en: 'Resident is angry that the internet installation technician did not show up for the appointment scheduled since yesterday morning, and calls are going unanswered.',
+      draft_vi: 'Chào anh/chị, em xin lỗi vì để anh/chị phải chờ và không liên lạc được. Em đã chuyển thông tin lịch hẹn lắp mạng và phản hồi của anh/chị lên quản lý để xử lý gấp. Quản lý sẽ kiểm tra lại với đơn vị lắp đặt và liên hệ anh/chị sớm nhất để xác nhận lịch mới. Mong anh/chị thông cảm và cho em xin thêm số điện thoại liên hệ nếu có thay đổi ạ.' },
     { category: 'billing', urgency: 'high', route_to: 'billing',
-      summary_en: 'Customer paid a deposit last week but has not received a receipt, and says the sales agent is not answering calls; she is frustrated.',
-      draft_vi: 'Chào chị, cảm ơn chị đã phản hồi và xin lỗi chị vì sự bất tiện này. Chúng tôi đã ghi nhận việc chị đặt cọc tuần trước nhưng chưa nhận được phiếu thu. Bộ phận kế toán sẽ kiểm tra và gửi phiếu thu cho chị sớm nhất. Đồng thời, chúng tôi sẽ nhờ nhân viên kinh doanh phụ trách liên hệ lại với chị trong thời gian sớm nhất. Rất mong chị thông cảm và cho chúng tôi thêm thời gian xác nhận.' }
+      summary_en: 'A sales agent asks that the invoice for unit C08 (internet installation completed yesterday) be sent to the customer before 5 PM today.',
+      draft_vi: 'Chào anh, cảm ơn anh đã gửi yêu cầu. Bên em đã ghi nhận yêu cầu gửi hóa đơn lắp đặt mạng cho khách căn C08 trước 17h chiều nay và sẽ chuyển ngay cho bộ phận kế toán để xử lý. Em sẽ xác nhận lại với anh khi hóa đơn đã được gửi cho khách. Trân trọng.' }
   ];
   const sampleButtons = [...document.querySelectorAll('.samples button')];
 
