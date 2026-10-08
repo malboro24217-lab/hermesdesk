@@ -11,7 +11,7 @@ Live site: https://hermesdesk.dev
 | Path | What it is |
 | --- | --- |
 | `site/` | The public website, including the live demo |
-| `netlify/functions/classify.mjs` | The prototype: sends one message to Claude and returns category, urgency, routing and a draft reply |
+| `netlify/functions/classify.mjs` | The prototype: sends one message, or a whole inbox of up to 6 messages in a single call, to Claude and returns category, urgency, routing and a draft reply for each |
 | `netlify.toml` | Netlify build settings |
 
 ## Run the prototype
@@ -33,7 +33,7 @@ curl -X POST localhost:8888/api/classify \
 
 ## Status
 
-In daily use for 2 months by a pilot group of 10 coordinators from the founder's network (15–20 leads per person per day), connected to Zalo, Messenger and email. Pilot users report about 70% less time to respond to and handle a lead, about 90% fewer missed leads, and 90% of drafts sent as written or with light edits. The internal tool sorts contacts with fixed rules first and uses Gemini Flash for the few contacts no rule covers; moving that step onto the Claude API is next. The public prototype in this repo runs on the Claude API, and the system is designed and built with Claude.
+In daily use on the founder's own coordination desk, synced from Zalo every 5 minutes. The internal lead ledger holds 629 records since March 2026, and 1,594 Zalo contacts are sorted into roles by fixed rules. Time saved has not been measured yet. Now opening to pilot teams. The internal tool sorts contacts with fixed rules first and uses Gemini Flash for the few contacts no rule covers; moving that step onto the Claude API is next. The public prototype in this repo runs on the Claude API, and the system is designed and built with Claude.
 
 ## Contact
 
