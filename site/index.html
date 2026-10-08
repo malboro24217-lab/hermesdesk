@@ -448,7 +448,7 @@
         <h1>Every customer message, routed before it goes cold.</h1>
         <p class="lede">Hermes Desk is an AI coordination desk for the people who handle customers referred by real estate sales agents in Vietnam. It reads incoming customer messages, sorts leads, complaints and billing requests, and drafts replies for a person to approve.</p>
         <div class="ctas"><a class="primary" href="#demo">Try the live demo</a><a href="#pilot">Join the free pilot</a></div>
-        <p class="status">In daily use on the founder's own coordination desk. Now opening to pilot teams.</p>
+        <p class="status">Its internal version, Lead Radar, is in daily use on the founder's own desk. Now opening to pilot teams.</p>
       </div>
 
       <div class="envelope" role="img" aria-label="Real output from the live demo: six messages from one morning inbox sorted into two new leads, two complaints and two billing requests, each with an urgency level, and a draft reply waiting for approval.">
@@ -476,24 +476,6 @@
         </div>
       </div>
     </div>
-
-    <section class="block" aria-labelledby="how">
-      <h2 id="how">How it works</h2>
-      <ol class="steps">
-        <li>
-          <h3>Read</h3>
-          <p>Hermes Desk reads each incoming message in Vietnamese, along with the conversation history for that customer.</p>
-        </li>
-        <li>
-          <h3>Route</h3>
-          <p>It sorts the message as a new lead, a complaint or a billing request, marks how urgent it is, and assigns it to the right person.</p>
-        </li>
-        <li>
-          <h3>Draft for approval</h3>
-          <p>It writes a reply in the coordinator's tone. Nothing is sent until a person approves it.</p>
-        </li>
-      </ol>
-    </section>
 
     <section class="block wide" id="demo" aria-labelledby="try">
       <h2 id="try">Try the prototype</h2>
@@ -549,8 +531,8 @@
           <li><b>Structured output.</b> Claude answers through a single tool, <code>route_message</code>, which returns five fields: category, urgency, who to route to, a one-line English summary and a Vietnamese draft reply. If the answer does not come back in that shape, the function returns an error rather than a made-up result.</li>
           <li><b>Guardrails.</b> Messages are capped at 600 characters, usage is rate-limited per visitor and per day, and Claude is told never to promise prices, availability or dates the coordinator has not given.</li>
           <li><b>A person approves every reply.</b> The AI never speaks to a customer on its own.</li>
-          <li><b>Built with Claude.</b> The system design, the Zalo sync and the lead ledger behind our internal tool were largely written with Claude.</li>
-          <li><b>Today and next.</b> The internal tool sorts contacts with fixed rules first, such as Zalo tags and known contact lists, and the few contacts no rule covers are classified by Gemini Flash. Next, we move classification and drafting in the internal tool onto the Claude API.</li>
+          <li><b>Written with Claude.</b> The system design, the Zalo sync and the lead ledger behind our internal tool were largely written with Claude.</li>
+          <li><b>Today and next.</b> The internal tool sorts contacts with fixed rules first, such as Zalo tags and known contact lists, and the few contacts no rule covers are classified by Gemini Flash. Next, we add Claude classification and drafting to the internal tool.</li>
           <li><b>Source.</b> The prototype code is public on <a href="https://github.com/malboro24217-lab/hermesdesk">GitHub</a>.</li>
         </ul>
       </div>
@@ -560,17 +542,11 @@
       <h2 id="problem">Why it matters</h2>
       <div class="prose">
         <div class="facts">
-          <div class="fact"><div class="n">10–15</div><div class="l">new leads a day for one coordinator, up to 20–30 on busy days</div></div>
+          <div class="fact"><div class="n">10–15</div><div class="l">new leads a day for one coordinator</div></div>
           <div class="fact"><div class="n">13 hrs</div><div class="l">of chat coverage, 8 am to 9 pm</div></div>
           <div class="fact"><div class="n">3</div><div class="l">kinds of work mixed in one inbox</div></div>
         </div>
-        <p>In Vietnamese real estate, residents, sales agents, service partners and billing all reach one coordinator through chat. When the inbox gets busy, a hot lead waits an hour, an angry customer waits a day, and a bill gets forgotten. These numbers come from our founder's own working day.</p>
-        <ul class="plain">
-          <li><b>Built from inside the job.</b> It follows how these desks actually run, not a generic help-desk template.</li>
-          <li><b>Vietnamese first.</b> It reads casual chat Vietnamese and replies in the polite tone customers expect.</li>
-          <li><b>Where customers already are.</b> Zalo, Messenger and email in one desk.</li>
-          <li><b>A person stays in charge.</b> Nothing reaches a customer until you approve it.</li>
-        </ul>
+        <p>In Vietnamese real estate, residents, sales agents, service partners and billing all reach one coordinator through chat. When the inbox gets busy, a hot lead waits an hour, an angry customer waits a day, and a bill gets forgotten. Figures from the founder's own working day.</p>
       </div>
     </section>
 
@@ -578,11 +554,11 @@
       <h2 id="results-h">Where it stands</h2>
       <div class="prose">
         <div class="facts">
-          <div class="fact"><div class="n">629</div><div class="l">lead records in the internal ledger since March 2026</div></div>
+          <div class="fact"><div class="n">629</div><div class="l">customer records in the internal ledger since March 2026</div></div>
           <div class="fact"><div class="n">1,594</div><div class="l">Zalo contacts sorted into roles by fixed rules</div></div>
           <div class="fact"><div class="n">5 min</div><div class="l">between syncs from Zalo into the ledger</div></div>
         </div>
-        <p>These numbers come straight from the internal tool shown above. Hermes Desk is in daily use on the founder's own desk and is now opening to pilot teams. We have not measured time saved yet; that is the next thing we will measure, inside the product rather than by estimate.</p>
+        <p>Straight from the internal tool shown above. We have not measured time saved yet; that is the next thing we will measure, inside the product rather than by estimate.</p>
       </div>
     </section>
 
@@ -669,8 +645,8 @@
     <section class="block founder" id="about" aria-labelledby="who">
       <h2 id="who">Who is building it</h2>
       <div>
-        <p>Hermes Desk is built by Trần Việt Tùng, a coordinator who works every day between buyers, sales agents and billing on real estate projects in Vietnam. He handles leads, sends bills and resolves complaints across a chat inbox that runs from 8 am to 9 pm.</p>
-        <p>He has run his coordination work as a registered household business since 2024. Hermes Desk started as the tool he built for his own desk, which he uses every day. It is now opening to pilot teams.</p>
+        <p>Hermes Desk is built by Trần Việt Tùng, a coordinator who works every day between residents referred by real estate sales agents, service partners and billing in Vietnam. He handles leads, sends bills and resolves complaints across a chat inbox that runs from 8 am to 9 pm.</p>
+        <p>He has run his coordination work as a registered household business since 2024. Hermes Desk started as the tool he built for his own desk, which he uses every day.</p>
         <p class="hint">Timeline: the household business has operated since June 2024. Our lead records go back to March 2026. This website, hermesdesk.dev, launched in October 2026.</p>
         <p><a href="https://www.linkedin.com/in/t%C3%B9ng-tr%E1%BA%A7n-40636415b/" rel="me noopener" target="_blank">Trần Việt Tùng on LinkedIn</a></p>
       </div>
@@ -763,7 +739,7 @@
       if (data.ms) out.insertAdjacentHTML('beforeend', '<p class="approve">' + esc(UI2.one((data.ms / 1000).toFixed(1), data.model)) + '</p>');
     } catch (e) {
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
-      if (idx < 0) { out.textContent = UI2.offline; out.className = 'result show error'; return; }
+      if (idx < 0) { out.textContent = (e.message && !/^(offline|Failed to fetch|Load failed|NetworkError)/.test(e.message)) ? e.message : UI2.offline; out.className = 'result show error'; return; }
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
       const which = idx >= 0 && idx < saved.length ? 'this example' : 'the first example';
       render(ex, 'The live demo is unavailable right now (' + e.message.replace(/\.$/, '') + '). Below is a saved result the live demo produced for ' + which + ' on 8 October 2026.');
@@ -773,7 +749,7 @@
   });
 
   // Inbox demo: six messages sorted in one Claude call.
-  const UI2 = { cols: { lead: 'New leads', complaint: 'Complaints', billing: 'Billing', other: 'Other' }, urg: { high: 'High', medium: 'Medium', low: 'Low' }, draft: 'Draft reply', approve: 'Approve draft', approved: 'Approved · not sent (demo)', busy: 'Reading 6 messages…', again: 'Sort it again', run: 'Sort this inbox', done: (n, s, m, i, o) => 'Sorted ' + n + ' messages in ' + s + ' s in one request · ' + m + (i ? ' · ' + i + ' tokens in, ' + o + ' out' : ''), saved: 'The live demo is unavailable right now. Below is a saved result the live demo produced for this inbox on 8 October 2026.', fail: 'The inbox could not be sorted right now. Try again in a moment.', one: (s, m) => 'Answered in ' + s + ' s by ' + m + '.', offline: 'The live demo is unavailable right now. Try one of the examples above, or try again in a moment.', missing: (n) => ' · ' + n + ' message(s) not sorted, try again' };
+  const UI2 = { cols: { lead: 'New leads', complaint: 'Complaints', billing: 'Billing', other: 'Other' }, urg: { high: 'High', medium: 'Medium', low: 'Low' }, draft: 'Draft reply', approve: 'Approve draft', approved: 'Approved · not sent (demo)', busy: 'Reading 6 messages…', again: 'Sort it again', run: 'Sort this inbox', done: (n, s, m, i, o) => 'Sorted ' + n + ' messages in ' + s + ' s in one request · ' + m + (i ? ' · ' + i + ' tokens in, ' + o + ' out' : ''), saved: 'The live demo is unavailable right now. Below is a saved result the live demo produced for this inbox on 8 October 2026.', fail: 'The inbox could not be sorted right now. Try again in a moment.', one: (s, m) => 'Answered in ' + s + ' s by ' + m + '.', offline: 'The live demo is unavailable right now. Try one of the examples above, or try again in a moment.', missing: (n) => ' · ' + n + ' message(s) not sorted, try again', rawLive: 'View the raw API response', rawSaved: 'View the saved API response (8 October 2026)' };
   const INBOX = [
     { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
     { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },
@@ -822,9 +798,10 @@
         ], { duration: 650, delay: n * 110, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
       });
     }
-    const placed = new Set((data.items || []).map((it) => it.index)).size;
-    inboxStatus.textContent = (note || UI2.done(data.items.length, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens)) + (placed < INBOX.length ? UI2.missing(INBOX.length - placed) : '');
+    const placed = new Set((data.items || []).map((it) => it.index).filter((i) => i >= 1 && i <= INBOX.length)).size;
+    inboxStatus.textContent = (note || UI2.done(placed, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens)) + (placed < INBOX.length ? UI2.missing(INBOX.length - placed) : '');
     rawPre.textContent = JSON.stringify(data, null, 2);
+    raw.querySelector('summary').textContent = note ? UI2.rawSaved : UI2.rawLive;
     raw.hidden = false;
   };
   board.addEventListener('click', (e) => {

@@ -448,7 +448,7 @@
         <h1>Mọi tin nhắn khách hàng, được xử lý trước khi nguội.</h1>
         <p class="lede">Hermes Desk là bàn điều phối AI cho những người tiếp nhận khách do sale bất động sản giới thiệu tại Việt Nam. Hệ thống đọc tin nhắn khách gửi đến, phân loại lead, khiếu nại và yêu cầu bill, rồi soạn sẵn câu trả lời để người điều phối duyệt.</p>
         <div class="ctas"><a class="primary" href="#demo">Dùng thử demo</a><a href="#pilot">Tham gia pilot miễn phí</a></div>
-        <p class="status">Đang được dùng hằng ngày ở bàn điều phối của người sáng lập. Đang mở cho các đội pilot.</p>
+        <p class="status">Bản nội bộ, Lead Radar, đang được dùng hằng ngày ở bàn điều phối của người sáng lập. Đang mở cho các đội pilot.</p>
       </div>
 
       <div class="envelope" role="img" aria-label="Kết quả thật từ bản demo: sáu tin nhắn trong hộp thư buổi sáng được chia thành hai lead mới, hai khiếu nại và hai yêu cầu bill, kèm mức gấp, và một câu trả lời nháp đang chờ duyệt.">
@@ -476,24 +476,6 @@
         </div>
       </div>
     </div>
-
-    <section class="block" aria-labelledby="how">
-      <h2 id="how">Cách hoạt động</h2>
-      <ol class="steps">
-        <li>
-          <h3>Đọc</h3>
-          <p>Hermes Desk đọc từng tin nhắn tiếng Việt, cùng lịch sử trò chuyện với khách hàng đó.</p>
-        </li>
-        <li>
-          <h3>Phân luồng</h3>
-          <p>Hệ thống xếp tin nhắn vào lead mới, khiếu nại hoặc yêu cầu bill, đánh dấu mức độ gấp và giao cho đúng người.</p>
-        </li>
-        <li>
-          <h3>Soạn nháp để duyệt</h3>
-          <p>Hệ thống soạn câu trả lời theo giọng của người điều phối. Không gì được gửi đi khi chưa có người duyệt.</p>
-        </li>
-      </ol>
-    </section>
 
     <section class="block wide" id="demo" aria-labelledby="try">
       <h2 id="try">Dùng thử bản mẫu</h2>
@@ -549,8 +531,8 @@
           <li><b>Kết quả có cấu trúc.</b> Claude trả lời qua đúng một công cụ, <code>route_message</code>, gồm năm trường: loại tin, mức gấp, chuyển cho ai, tóm tắt một dòng bằng tiếng Anh và câu trả lời nháp bằng tiếng Việt. Nếu câu trả lời không đúng khuôn này, hàm trả về lỗi thay vì bịa ra kết quả.</li>
           <li><b>Giới hạn an toàn.</b> Mỗi tin tối đa 600 ký tự, số lượt dùng bị giới hạn theo người dùng và theo ngày, và Claude được dặn không bao giờ hứa giá, tình trạng còn hàng hay ngày giờ mà người điều phối chưa đưa ra.</li>
           <li><b>Mọi câu trả lời đều do người duyệt.</b> AI không bao giờ tự nói chuyện với khách.</li>
-          <li><b>Xây dựng cùng Claude.</b> Phần lớn thiết kế hệ thống, bộ đồng bộ Zalo và sổ quản lý lead của công cụ nội bộ được viết cùng Claude.</li>
-          <li><b>Hiện tại và tiếp theo.</b> Công cụ nội bộ phân loại liên hệ bằng luật cố định trước, như tag Zalo và danh bạ đã biết; số ít liên hệ chưa có luật nào khớp được phân loại bằng Gemini Flash. Bước tiếp theo là chuyển phần phân loại và soạn trả lời của công cụ nội bộ sang Claude API.</li>
+          <li><b>Viết cùng Claude.</b> Phần lớn thiết kế hệ thống, bộ đồng bộ Zalo và sổ quản lý lead của công cụ nội bộ được viết cùng Claude.</li>
+          <li><b>Hiện tại và tiếp theo.</b> Công cụ nội bộ phân loại liên hệ bằng luật cố định trước, như tag Zalo và danh bạ đã biết; số ít liên hệ chưa có luật nào khớp được phân loại bằng Gemini Flash. Bước tiếp theo là đưa Claude vào phân loại và soạn trả lời trong công cụ nội bộ.</li>
           <li><b>Mã nguồn.</b> Mã của bản demo được công khai trên <a href="https://github.com/malboro24217-lab/hermesdesk">GitHub</a>.</li>
         </ul>
       </div>
@@ -560,17 +542,11 @@
       <h2 id="problem">Vì sao cần Hermes Desk</h2>
       <div class="prose">
         <div class="facts">
-          <div class="fact"><div class="n">10–15</div><div class="l">lead mới mỗi ngày cho một người điều phối, ngày cao điểm lên tới 20–30</div></div>
+          <div class="fact"><div class="n">10–15</div><div class="l">lead mới mỗi ngày cho một người điều phối</div></div>
           <div class="fact"><div class="n">13 giờ</div><div class="l">trực tin nhắn, từ 8h sáng đến 9h tối</div></div>
           <div class="fact"><div class="n">3</div><div class="l">loại việc lẫn lộn trong một hộp thư</div></div>
         </div>
-        <p>Trong bất động sản Việt Nam, cư dân, sale, đối tác dịch vụ và bộ phận thu tiền đều liên hệ một người điều phối qua chat. Khi hộp thư dồn lên, lead nóng phải chờ cả tiếng, khách đang bực phải chờ cả ngày, và hoá đơn bị quên mất. Những con số trên lấy từ chính ngày làm việc của người sáng lập.</p>
-        <ul class="plain">
-          <li><b>Làm ra từ chính công việc.</b> Theo đúng cách các bàn điều phối này vận hành, không phải mẫu help-desk chung chung.</li>
-          <li><b>Tiếng Việt là trên hết.</b> Đọc tiếng Việt kiểu chat thường ngày và trả lời bằng giọng lịch sự mà khách mong đợi.</li>
-          <li><b>Ở đúng nơi khách đang nhắn.</b> Zalo, Messenger và email trong một bàn làm việc.</li>
-          <li><b>Con người luôn giữ quyền quyết định.</b> Không gì đến tay khách khi bạn chưa duyệt.</li>
-        </ul>
+        <p>In Vietnamese real estate, residents, sales agents, service partners and billing all reach one coordinator through chat. When the inbox gets busy, a hot lead waits an hour, an angry customer waits a day, and a bill gets forgotten. Figures from the founder's own working day.</p>
       </div>
     </section>
 
@@ -578,11 +554,11 @@
       <h2 id="results-h">Hiện trạng</h2>
       <div class="prose">
         <div class="facts">
-          <div class="fact"><div class="n">629</div><div class="l">hồ sơ lead trong sổ nội bộ, từ tháng 3/2026</div></div>
+          <div class="fact"><div class="n">629</div><div class="l">hồ sơ khách trong sổ nội bộ, từ tháng 3/2026</div></div>
           <div class="fact"><div class="n">1.594</div><div class="l">liên hệ Zalo được phân vai bằng luật cố định</div></div>
           <div class="fact"><div class="n">5 phút</div><div class="l">một lần đồng bộ từ Zalo vào sổ</div></div>
         </div>
-        <p>Các con số này lấy trực tiếp từ công cụ nội bộ ở trên. Hermes Desk đang được dùng hằng ngày ở bàn điều phối của người sáng lập và đang mở cho các đội pilot. Chúng tôi chưa đo thời gian tiết kiệm được; đó là thứ tiếp theo sẽ đo, ngay trong sản phẩm chứ không ước tính.</p>
+        <p>Lấy trực tiếp từ công cụ nội bộ ở trên. Chúng tôi chưa đo thời gian tiết kiệm được; đó là thứ tiếp theo sẽ đo, ngay trong sản phẩm chứ không ước tính.</p>
       </div>
     </section>
 
@@ -669,8 +645,8 @@
     <section class="block founder" id="about" aria-labelledby="who">
       <h2 id="who">Người làm ra Hermes Desk</h2>
       <div>
-        <p>Hermes Desk do Trần Việt Tùng xây dựng. Anh là điều phối viên, mỗi ngày làm việc giữa khách mua, sale và bộ phận thu tiền ở các dự án bất động sản tại Việt Nam: xử lý lead, gửi bill và giải quyết khiếu nại trong một hộp thư chạy từ 8h sáng đến 9h tối.</p>
-        <p>Anh vận hành công việc điều phối dưới dạng hộ kinh doanh đăng ký từ năm 2024. Hermes Desk ra đời từ công cụ anh tự làm cho bàn điều phối của mình và dùng hằng ngày. Giờ Hermes Desk đang mở cho các đội pilot.</p>
+        <p>Hermes Desk do Trần Việt Tùng xây dựng. Anh là điều phối viên, mỗi ngày làm việc giữa cư dân do sale bất động sản giới thiệu, đối tác dịch vụ và bộ phận thu tiền tại Việt Nam: xử lý lead, gửi bill và giải quyết khiếu nại trong một hộp thư chạy từ 8h sáng đến 9h tối.</p>
+        <p>Anh vận hành công việc điều phối dưới dạng hộ kinh doanh đăng ký từ năm 2024. Hermes Desk ra đời từ công cụ anh tự làm cho bàn điều phối của mình và dùng hằng ngày.</p>
         <p class="hint">Mốc thời gian: hộ kinh doanh hoạt động từ tháng 6/2024. Sổ lead nội bộ có dữ liệu từ tháng 3/2026. Website hermesdesk.dev ra mắt tháng 10/2026.</p>
         <p><a href="https://www.linkedin.com/in/t%C3%B9ng-tr%E1%BA%A7n-40636415b/" rel="me noopener" target="_blank">Trần Việt Tùng trên LinkedIn</a></p>
       </div>
@@ -763,7 +739,7 @@
       if (data.ms) out.insertAdjacentHTML('beforeend', '<p class="approve">' + esc(UI2.one((data.ms / 1000).toFixed(1), data.model)) + '</p>');
     } catch (e) {
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
-      if (idx < 0) { out.textContent = UI2.offline; out.className = 'result show error'; return; }
+      if (idx < 0) { out.textContent = (e.message && !/^(offline|Failed to fetch|Load failed|NetworkError)/.test(e.message)) ? e.message : UI2.offline; out.className = 'result show error'; return; }
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
       const which = idx >= 0 && idx < saved.length ? 'ví dụ này' : 'ví dụ đầu tiên';
       render(ex, 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho ' + which + ' vào ngày 8/10/2026.');
@@ -773,7 +749,7 @@
   });
 
   // Inbox demo: six messages sorted in one Claude call.
-  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Phân loại hộp thư này', done: (n, s, m, i, o) => 'Đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.', offline: 'Bản demo trực tiếp tạm thời không chạy được. Hãy thử một ví dụ ở trên, hoặc thử lại sau.', missing: (n) => ' · ' + n + ' tin chưa được phân loại, hãy thử lại' };
+  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Phân loại hộp thư này', done: (n, s, m, i, o) => 'Đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.', offline: 'Bản demo trực tiếp tạm thời không chạy được. Hãy thử một ví dụ ở trên, hoặc thử lại sau.', missing: (n) => ' · ' + n + ' tin chưa được phân loại, hãy thử lại', rawLive: 'Xem phản hồi gốc từ API', rawSaved: 'Xem phản hồi API đã lưu (8/10/2026)' };
   const INBOX = [
     { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
     { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },
@@ -822,9 +798,10 @@
         ], { duration: 650, delay: n * 110, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
       });
     }
-    const placed = new Set((data.items || []).map((it) => it.index)).size;
-    inboxStatus.textContent = (note || UI2.done(data.items.length, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens)) + (placed < INBOX.length ? UI2.missing(INBOX.length - placed) : '');
+    const placed = new Set((data.items || []).map((it) => it.index).filter((i) => i >= 1 && i <= INBOX.length)).size;
+    inboxStatus.textContent = (note || UI2.done(placed, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens)) + (placed < INBOX.length ? UI2.missing(INBOX.length - placed) : '');
     rawPre.textContent = JSON.stringify(data, null, 2);
+    raw.querySelector('summary').textContent = note ? UI2.rawSaved : UI2.rawLive;
     raw.hidden = false;
   };
   board.addEventListener('click', (e) => {
