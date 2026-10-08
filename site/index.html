@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hermes Desk</title>
 <meta name="description" content="Hermes Desk is an AI coordination desk for real estate sales teams in Vietnam. It reads incoming customer messages, routes leads, complaints and billing requests, and drafts replies for a person to approve.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://hermesdesk.dev/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hermes Desk">
+<meta property="og:title" content="Hermes Desk: every customer message, routed before it goes cold">
+<meta property="og:description" content="An AI coordination desk for real estate sales teams in Vietnam. Sorts leads, complaints and billing requests, and drafts replies for a person to approve.">
+<meta property="og:url" content="https://hermesdesk.dev/">
+<meta property="og:image" content="https://hermesdesk.dev/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -72,7 +81,8 @@
     font-weight: 500; text-decoration: none; color: var(--muted);
   }
   header.site nav a:hover { color: var(--ink); }
-  header.site nav.top { display: flex; gap: 22px; }
+  header.site nav.top { display: flex; gap: 22px; flex-wrap: wrap; }
+  header.site { flex-wrap: wrap; gap: 12px; }
 
   /* Hero */
   .hero {
@@ -271,6 +281,39 @@
 
   .founder p { margin: 0 0 14px; max-width: 62ch; }
 
+  /* Pricing: three columns divided by rules, not cards */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--ink); }
+  .plan { padding: 20px 22px 8px 0; }
+  .plan + .plan { padding-left: 22px; border-left: 1px solid var(--rule); }
+  .plan h3 { font-size: 1.0625rem; margin: 0 0 6px; font-weight: 600; }
+  .plan .price { font-family: var(--display); font-weight: 700; font-size: 1.75rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .plan .price span { font-family: var(--body); font-size: 0.9375rem; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+  .plan .for { color: var(--muted); font-size: 0.9375rem; margin: 0 0 12px; }
+  .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
+  .plan li { margin-bottom: 6px; }
+  .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  @media (max-width: 760px) {
+    .plans { grid-template-columns: 1fr; }
+    .plan, .plan + .plan { padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+  }
+
+  /* Pilot form */
+  .pilot-intro { margin: 0 0 20px; max-width: 58ch; font-size: 1rem; }
+  form.pilot { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; max-width: 640px; }
+  form.pilot label { display: grid; gap: 6px; font-size: 0.9375rem; font-weight: 600; }
+  form.pilot .wide { grid-column: 1 / -1; }
+  form.pilot input, form.pilot select, form.pilot textarea {
+    font: inherit; font-weight: 400; color: var(--ink); background: var(--card);
+    border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; width: 100%;
+  }
+  form.pilot input:focus-visible, form.pilot select:focus-visible, form.pilot textarea:focus-visible {
+    outline: 3px solid var(--air-blue); outline-offset: 2px;
+  }
+  form.pilot .hp { position: absolute; left: -9999px; }
+  .demo .run, form.pilot .run { background: var(--air-blue); color: #fff; border: 0; font-weight: 600; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+  .saved-note { font-size: 0.875rem; color: var(--muted); margin: 0 0 12px; }
+  @media (max-width: 560px) { form.pilot { grid-template-columns: 1fr; } }
+
   footer.site nav { display: flex; gap: 20px; flex-wrap: wrap; }
 
   footer.site {
@@ -280,6 +323,7 @@
     color: var(--muted); font-size: 0.9375rem;
   }
   footer.site a { color: var(--ink); font-weight: 500; }
+  footer.site .legal p { margin: 0 0 6px; max-width: 60ch; }
 
   @media (max-width: 880px) {
     .hero { grid-template-columns: 1fr; gap: 48px; padding: 24px 0 72px; }
@@ -305,7 +349,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Try it</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <nav class="top"><a href="#demo">Try it</a><a href="#pricing">Pricing</a><a href="#pilot">Join the pilot</a><a href="#about">About</a></nav>
   </header>
 
   <main>
@@ -313,7 +357,7 @@
       <div>
         <h1>Every customer message, routed before it goes cold.</h1>
         <p class="lede">Hermes Desk is an AI coordination desk for real estate sales teams in Vietnam. It reads incoming customer messages, sorts leads, complaints and billing requests, and drafts replies for a person to approve.</p>
-        <p class="status">In development. Piloting on our own coordination work.</p>
+        <p class="status">In daily use on our own coordination desk for 4 weeks. Now opening to pilot teams.</p>
       </div>
 
       <div class="envelope" role="img" aria-label="Example: three incoming customer messages sorted into a lead, a complaint and a billing request, with a drafted reply waiting for approval.">
@@ -398,24 +442,96 @@
         <ul class="plain">
           <li>Claude reads and classifies messages, and drafts replies in natural Vietnamese.</li>
           <li>A person approves every reply. The AI never speaks to a customer on its own.</li>
-          <li>We start with our own daily coordination work, then open the desk to other sales teams.</li>
+          <li>For the past 4 weeks, our internal version has handled the founder's and a second coordinator's real inbox, connected to Zalo, Messenger and email. The demo on this page shows its sorting and drafting step.</li>
+          <li>Next, we open the desk to other coordinators and sales teams through the pilot.</li>
         </ul>
       </div>
     </section>
+    <section class="block" id="pricing" aria-labelledby="price-h">
+      <h2 id="price-h">Pricing</h2>
+      <div>
+        <div class="plans">
+          <div class="plan">
+            <h3>Pilot</h3>
+            <p class="price">Free</p>
+            <p class="for">For early coordinators who help shape the product.</p>
+            <ul>
+              <li>1 coordinator</li>
+              <li>Message sorting, routing and draft replies</li>
+              <li>Direct feedback line to the founder</li>
+            </ul>
+          </div>
+          <div class="plan">
+            <h3>Coordinator</h3>
+            <p class="price">290.000 ₫ <span>/ month</span></p>
+            <p class="for">For one coordinator running their own desk.</p>
+            <ul>
+              <li>1 coordinator</li>
+              <li>Zalo, Messenger and email in one desk</li>
+              <li>Sorting, routing and drafts, approved by you</li>
+            </ul>
+          </div>
+          <div class="plan">
+            <h3>Team</h3>
+            <p class="price">990.000 ₫ <span>/ month</span></p>
+            <p class="for">For a sales team sharing one desk.</p>
+            <ul>
+              <li>Up to 5 people</li>
+              <li>Routing to sales agents, billing and the team lead</li>
+              <li>Everything in Coordinator</li>
+            </ul>
+          </div>
+        </div>
+        <p class="hint plans-note">Prices in Vietnamese đồng, billed monthly. Every team starts with the pilot. <a href="#pilot">Request a spot</a>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="pilot" aria-labelledby="pilot-h">
+      <h2 id="pilot-h">Join the pilot</h2>
+      <div>
+        <p class="hint pilot-intro">We are opening Hermes Desk to a small group of coordinators and sales team leads in Vietnam. Tell us about your desk and we will get in touch.</p>
+        <form class="pilot" name="pilot" method="POST" data-netlify="true" netlify-honeypot="company_website">
+          <input type="hidden" name="form-name" value="pilot">
+          <p class="hp"><label>Leave this empty <input name="company_website" tabindex="-1" autocomplete="off"></label></p>
+          <label>Your name<input name="name" required autocomplete="name"></label>
+          <label>Email<input name="email" type="email" required autocomplete="email"></label>
+          <label>Your role
+            <select name="role">
+              <option>Coordinator</option>
+              <option>Sales team lead</option>
+              <option>Sales agent</option>
+              <option>Developer or project owner</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Messages your desk handles a day<input name="volume" inputmode="numeric" placeholder="e.g. 50"></label>
+          <label class="wide">Anything else we should know<textarea name="notes" rows="3"></textarea></label>
+          <div class="row wide">
+            <button type="submit" class="run">Request a pilot spot</button>
+            <span class="hint" id="pilot-status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <section class="block founder" id="about" aria-labelledby="who">
       <h2 id="who">Who is building it</h2>
       <div>
-        <p>Hermes Desk is built by Việt Tùng, a coordinator who works every day between buyers, sales agents and billing on real estate projects in Vietnam. He handles leads, sends bills and resolves complaints across a chat inbox that runs from 8 am to 9 pm.</p>
-        <p>Hermes Desk is the tool he is building for his own desk first. Once it holds up in his daily work, it will open to other coordinators and sales teams.</p>
+        <p>Hermes Desk is built by Trần Việt Tùng, a coordinator who works every day between buyers, sales agents and billing on real estate projects in Vietnam. He handles leads, sends bills and resolves complaints across a chat inbox that runs from 8 am to 9 pm.</p>
+        <p>Hermes Desk started as the tool he built for his own desk. After four weeks of daily use alongside a second coordinator, it is opening to other coordinators and sales teams.</p>
       </div>
     </section>
   </main>
 
   <footer class="site" id="contact">
-    <span>Hermes Desk, founded by Việt Tùng. <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a></span>
+    <div class="legal">
+      <p>© 2026 Hermes Desk. Operated by Hộ kinh doanh Trần Việt Tùng (Tran Viet Tung Household Business), Vietnam. Business registration no. <span style="white-space:nowrap">8375250387-001</span>.</p>
+      <p>Founder: Trần Việt Tùng · <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a></p>
+    </div>
     <nav aria-label="Footer">
       <a href="https://github.com/malboro24217-lab/hermesdesk">Source on GitHub</a>
       <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
   </footer>
 
@@ -431,6 +547,32 @@
     route_to: { sales_agent: 'Route to sales agent', team_lead: 'Escalate to team lead', billing: 'Route to billing', coordinator: 'Keep with coordinator' }
   };
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Real outputs from the live prototype, saved on 8 Oct 2026, shown only if the live demo is unavailable.
+  const saved = [
+    { category: 'lead', urgency: 'high', route_to: 'sales_agent',
+      summary_en: 'Buyer asks if a high-floor 2-bedroom unit in the project is still available, its price, and whether they can view it tomorrow afternoon.',
+      draft_vi: 'Chào anh, cảm ơn anh đã quan tâm đến căn hộ 2 phòng ngủ tầng cao tại dự án. Hiện tại em chưa có đủ thông tin về tình trạng còn trống và giá bán, nên em sẽ kiểm tra lại và xác nhận với anh sớm nhất. Về lịch xem nhà chiều mai, em sẽ sắp xếp với bộ phận kinh doanh và báo lại để anh chủ động thời gian. Anh cho em xin số điện thoại để em liên hệ trực tiếp ạ.' },
+    { category: 'billing', urgency: 'high', route_to: 'billing',
+      summary_en: 'Customer paid a deposit last week but has not received a receipt, and says the sales agent is not answering calls; she is frustrated.',
+      draft_vi: 'Chào chị, cảm ơn chị đã phản hồi và xin lỗi chị vì sự bất tiện này. Chúng tôi đã ghi nhận việc chị đặt cọc tuần trước nhưng chưa nhận được phiếu thu. Bộ phận kế toán sẽ kiểm tra và gửi phiếu thu cho chị sớm nhất. Đồng thời, chúng tôi sẽ nhờ nhân viên kinh doanh phụ trách liên hệ lại với chị trong thời gian sớm nhất. Rất mong chị thông cảm và cho chúng tôi thêm thời gian xác nhận.' }
+  ];
+  const sampleButtons = [...document.querySelectorAll('.samples button')];
+
+  const render = (data, note) => {
+    out.innerHTML =
+      (note ? '<p class="saved-note">' + esc(note) + '</p>' : '') +
+      '<div class="meta">' +
+        '<span class="pill">' + esc(labels.category[data.category] || data.category) + '</span>' +
+        '<span class="pill">' + esc(labels.urgency[data.urgency] || data.urgency) + '</span>' +
+        '<span class="pill">' + esc(labels.route_to[data.route_to] || data.route_to) + '</span>' +
+      '</div>' +
+      '<p class="summary">' + esc(data.summary_en) + '</p>' +
+      '<p class="draft-label">Draft reply</p>' +
+      '<p class="draft-text" lang="vi">' + esc(data.draft_vi) + '</p>' +
+      '<p class="approve">Waiting for the coordinator to approve. Nothing has been sent.</p>';
+    out.className = 'result show';
+  };
 
   document.querySelectorAll('.samples button').forEach((b) => {
     b.addEventListener('click', () => { msg.value = b.dataset.msg; msg.focus(); });
@@ -448,23 +590,39 @@
         body: JSON.stringify({ message: text })
       });
       const data = await res.json().catch(() => ({}));
+      if (res.status === 400) { out.textContent = data.error || 'Check the message and try again.'; out.className = 'result show error'; return; }
       if (!res.ok) throw new Error(data.error || 'The demo is offline right now.');
-      out.innerHTML =
-        '<div class="meta">' +
-          '<span class="pill">' + esc(labels.category[data.category] || data.category) + '</span>' +
-          '<span class="pill">' + esc(labels.urgency[data.urgency] || data.urgency) + '</span>' +
-          '<span class="pill">' + esc(labels.route_to[data.route_to] || data.route_to) + '</span>' +
-        '</div>' +
-        '<p class="summary">' + esc(data.summary_en) + '</p>' +
-        '<p class="draft-label">Draft reply</p>' +
-        '<p class="draft-text" lang="vi">' + esc(data.draft_vi) + '</p>' +
-        '<p class="approve">Waiting for the coordinator to approve. Nothing has been sent.</p>';
-      out.className = 'result show';
+      render(data);
     } catch (e) {
-      out.textContent = e.message;
-      out.className = 'result show error';
+      const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
+      const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
+      const which = idx >= 0 && idx < saved.length ? 'this example' : 'the first example';
+      render(ex, 'The live demo is unavailable right now (' + e.message.replace(/\.$/, '') + '). Below is a saved result Claude produced for ' + which + ' on 8 October 2026.');
     } finally {
       run.disabled = false; run.textContent = 'Sort this message';
+    }
+  });
+
+  // Pilot form: submit to Netlify Forms without leaving the page.
+  const form = document.querySelector('form.pilot');
+  const status = document.getElementById('pilot-status');
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; status.textContent = 'Sending…';
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+      if (!res.ok) throw new Error();
+      form.reset();
+      status.textContent = 'Request received. We will email you about the pilot.';
+    } catch {
+      status.textContent = 'Could not send. Email tung@hermesdesk.dev instead.';
+    } finally {
+      btn.disabled = false;
     }
   });
 })();

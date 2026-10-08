@@ -32,8 +32,10 @@ curl -X POST localhost:8888/api/classify \
 
 ## Status
 
-In development. The founder is piloting it on his own daily coordination work.
+In daily use on the founder's coordination desk for 4 weeks (with a second coordinator), connected to Zalo, Messenger and email. Opening to pilot teams.
 
 ## Contact
 
-Việt Tùng · tung@hermesdesk.dev
+Trần Việt Tùng · tung@hermesdesk.dev
+
+Operated by Hộ kinh doanh Trần Việt Tùng (Tran Viet Tung Household Business), Vietnam.

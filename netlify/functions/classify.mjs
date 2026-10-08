@@ -1,8 +1,30 @@
 // Hermes Desk prototype: classify one incoming customer message and draft a reply.
 // Runs as a Netlify Function at /api/classify. Needs ANTHROPIC_API_KEY in the site's environment.
 
+import { getStore } from "@netlify/blobs";
+
 const MODEL = process.env.HERMES_MODEL || "claude-haiku-5-5";
 const MAX_INPUT = 600;
+const PER_IP_PER_DAY = 15;
+const ALL_PER_DAY = 400;
+
+// Counts demo requests per visitor and in total per day, so the public demo cannot be drained.
+// If the counter store is unavailable, requests are allowed rather than breaking the demo.
+async function overLimit(ip) {
+  try {
+    const store = getStore("demo-limits");
+    const day = new Date().toISOString().slice(0, 10);
+    const keys = [`${day}/ip/${ip || "unknown"}`, `${day}/all`];
+    const [mine, all] = await Promise.all(keys.map((k) => store.get(k)));
+    const m = Number(mine || 0), a = Number(all || 0);
+    if (m >= PER_IP_PER_DAY || a >= ALL_PER_DAY) return true;
+    await Promise.all([store.set(keys[0], String(m + 1)), store.set(keys[1], String(a + 1))]);
+    return false;
+  } catch (err) {
+    console.error("Rate limit store unavailable", err && err.message);
+    return false;
+  }
+}
 
 const SYSTEM = `You are Hermes Desk, the AI assistant of a coordinator for real estate sales teams in Vietnam.
 The coordinator sits between buyers, sales agents and the billing team, and receives messages in Vietnamese.
@@ -38,7 +60,7 @@ const json = (status, body) =>
     headers: { "content-type": "application/json; charset=utf-8" },
   });
 
-export default async (req) => {
+export default async (req, context = {}) => {
   if (req.method !== "POST") return json(405, { error: "Use POST." });
 
   const key = process.env.ANTHROPIC_API_KEY;
@@ -54,6 +76,8 @@ export default async (req) => {
   if (!message) return json(400, { error: "Type a message to sort." });
   if (message.length > MAX_INPUT)
     return json(400, { error: `Keep the message under ${MAX_INPUT} characters.` });
+
+  if (await overLimit(context.ip)) return json(429, { error: "The demo has reached today's limit." });
 
   // On Netlify, AI Gateway provides ANTHROPIC_BASE_URL alongside the key.
   const base = (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/+$/, "");
