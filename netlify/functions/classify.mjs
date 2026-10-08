@@ -14,7 +14,23 @@ For the incoming message, decide:
 - summary_en: one short English sentence describing the message.
 - draft_vi: a short, polite reply in natural Vietnamese, in the voice of the coordinator, ready for a human to review. Never promise prices, availability or dates you were not given; say the coordinator will confirm instead.
 
-Respond with only a JSON object with exactly these keys: category, urgency, route_to, summary_en, draft_vi.`;
+Record your decision with the route_message tool.`;
+
+const ROUTE_TOOL = {
+  name: "route_message",
+  description: "Record how an incoming customer message is sorted, routed, and answered.",
+  input_schema: {
+    type: "object",
+    properties: {
+      category: { type: "string", enum: ["lead", "complaint", "billing", "other"] },
+      urgency: { type: "string", enum: ["high", "medium", "low"] },
+      route_to: { type: "string", enum: ["sales_agent", "team_lead", "billing", "coordinator"] },
+      summary_en: { type: "string", description: "One short English sentence describing the message." },
+      draft_vi: { type: "string", description: "Short, polite reply in natural Vietnamese for a human to review." },
+    },
+    required: ["category", "urgency", "route_to", "summary_en", "draft_vi"],
+  },
+};
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
@@ -50,8 +66,10 @@ export default async (req) => {
     },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 500,
+      max_tokens: 1024,
       system: SYSTEM,
+      tools: [ROUTE_TOOL],
+      tool_choice: { type: "tool", name: ROUTE_TOOL.name },
       messages: [{ role: "user", content: message }],
     }),
   });
@@ -62,21 +80,20 @@ export default async (req) => {
   }
 
   const data = await res.json();
-  const text = (data.content || []).map((b) => b.text || "").join("").trim();
-  const match = text.match(/\{[\s\S]*\}/);
-  try {
-    const out = JSON.parse(match ? match[0] : text);
-    return json(200, {
-      category: out.category,
-      urgency: out.urgency,
-      route_to: out.route_to,
-      summary_en: out.summary_en,
-      draft_vi: out.draft_vi,
-      model: MODEL,
-    });
-  } catch {
+  const call = (data.content || []).find((b) => b.type === "tool_use" && b.name === ROUTE_TOOL.name);
+  const out = call && call.input;
+  if (!out || !out.category || !out.draft_vi) {
+    console.error("Unexpected Claude response", JSON.stringify(data).slice(0, 800));
     return json(502, { error: "Claude's answer could not be read. Try again." });
   }
+  return json(200, {
+    category: out.category,
+    urgency: out.urgency,
+    route_to: out.route_to,
+    summary_en: out.summary_en,
+    draft_vi: out.draft_vi,
+    model: MODEL,
+  });
 };
 
 export const config = { path: "/api/classify" };
