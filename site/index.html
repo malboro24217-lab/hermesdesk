@@ -295,6 +295,11 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .shots { display: grid; gap: 28px; }
+  .shots figure { margin: 0; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
+  .shots-intro { margin: 0 0 20px; max-width: 64ch; }
+  .shots figcaption { color: var(--muted); font-size: 0.9375rem; margin-top: 10px; max-width: 64ch; }
   .plans.two { grid-template-columns: repeat(2, 1fr); }
   .plan .price.quote { font-size: 1.25rem; }
   @media (max-width: 760px) {
@@ -373,17 +378,17 @@
           </div>
           <div class="msg">
             <div class="from">Anh Minh</div>
-            <div class="text">Căn 2PN view hồ còn không em? Cuối tuần anh qua xem được không?</div>
+            <div class="text">Căn 2PN anh mới nhận nhà, lắp mạng Mesh bao nhiêu em? Mai lắp được không?</div>
             <span class="tag lead">New lead</span>
           </div>
           <div class="msg">
             <div class="from">Chị Lan</div>
-            <div class="text">Hẹn sale 3 lần mà chưa ai liên hệ lại, chị rất không hài lòng.</div>
+            <div class="text">Hẹn kỹ thuật 3 lần mà chưa ai qua lắp, chị rất không hài lòng.</div>
             <span class="tag complaint">Complaint</span>
           </div>
           <div class="msg">
             <div class="from">Sale Hùng</div>
-            <div class="text">Gửi giúp anh bill đặt cọc căn B12 cho khách nhé.</div>
+            <div class="text">Khách căn B12 anh giới thiệu lắp xong rồi, gửi giúp anh bill nhé.</div>
             <span class="tag bill">Billing</span>
           </div>
           <div class="draft"><b>Draft ready for Chị Lan</b>, escalated to the team lead. Waiting for your approval.</div>
@@ -451,9 +456,9 @@
       <div class="demo">
         <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
         <div class="samples" aria-label="Example messages">
-          <button type="button" data-msg="Chào em, căn 2 phòng ngủ tầng cao bên dự án còn không? Giá bao nhiêu vậy em, chiều mai anh qua xem được không?">Buyer asking to view</button>
-          <button type="button" data-msg="Chị đặt cọc từ tuần trước mà tới giờ chưa nhận được phiếu thu. Gọi sale hoài không bắt máy, làm ăn kiểu gì vậy?">Angry buyer</button>
-          <button type="button" data-msg="Em ơi gửi giúp anh hoá đơn đợt 2 của căn C08 cho khách, khách cần trước 5h chiều nay.">Agent needs a bill</button>
+          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">New resident wants internet</button>
+          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Technician never came</button>
+          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Agent needs a bill</button>
         </div>
         <label for="msg" class="hint">Customer message</label>
         <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
@@ -477,6 +482,23 @@
         </ul>
       </div>
     </section>
+    <section class="block" id="inside" aria-labelledby="inside-h">
+      <h2 id="inside-h">Inside our internal tool</h2>
+      <div>
+        <p class="shots-intro">Hermes Desk grew out of Lead Radar, the tool the founder built for his own desk. These two screens show its real data. Customer names are cut to initials and phone numbers are hidden. Most customers on this desk are referred by real estate sales agents and need services such as internet installation in their new apartments.</p>
+        <div class="shots">
+          <figure>
+            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Lead Radar screen listing 13 new leads from Zalo between 28 and 30 September 2026, each with its need, heat level and reply deadline. The ledger holds 629 records.">
+            <figcaption>Leads waiting for a reply, with deadlines set by how hot each lead is: 30 minutes for hot, 4 hours for warm, 24 hours for cold.</figcaption>
+          </figure>
+          <figure>
+            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Lead Radar screen mapping ten existing Zalo tags to four roles: customer, real estate sales agent, internet provider partner and other. 1,594 contacts have a role.">
+            <figcaption>Existing Zalo tags turned into roles for 1,594 contacts. Fixed rules decide first; AI only guesses for contacts with no tag.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section class="block" id="pricing" aria-labelledby="price-h">
       <h2 id="price-h">Pricing</h2>
       <div>

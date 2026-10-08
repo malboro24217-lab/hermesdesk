@@ -295,6 +295,11 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .shots { display: grid; gap: 28px; }
+  .shots figure { margin: 0; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
+  .shots-intro { margin: 0 0 20px; max-width: 64ch; }
+  .shots figcaption { color: var(--muted); font-size: 0.9375rem; margin-top: 10px; max-width: 64ch; }
   .plans.two { grid-template-columns: repeat(2, 1fr); }
   .plan .price.quote { font-size: 1.25rem; }
   @media (max-width: 760px) {
@@ -373,17 +378,17 @@
           </div>
           <div class="msg">
             <div class="from">Anh Minh</div>
-            <div class="text">Căn 2PN view hồ còn không em? Cuối tuần anh qua xem được không?</div>
+            <div class="text">Căn 2PN anh mới nhận nhà, lắp mạng Mesh bao nhiêu em? Mai lắp được không?</div>
             <span class="tag lead">Lead mới</span>
           </div>
           <div class="msg">
             <div class="from">Chị Lan</div>
-            <div class="text">Hẹn sale 3 lần mà chưa ai liên hệ lại, chị rất không hài lòng.</div>
+            <div class="text">Hẹn kỹ thuật 3 lần mà chưa ai qua lắp, chị rất không hài lòng.</div>
             <span class="tag complaint">Khiếu nại</span>
           </div>
           <div class="msg">
             <div class="from">Sale Hùng</div>
-            <div class="text">Gửi giúp anh bill đặt cọc căn B12 cho khách nhé.</div>
+            <div class="text">Khách căn B12 anh giới thiệu lắp xong rồi, gửi giúp anh bill nhé.</div>
             <span class="tag bill">Bill</span>
           </div>
           <div class="draft"><b>Đã soạn trả lời cho chị Lan</b>, chuyển trưởng nhóm xử lý. Đang chờ bạn duyệt.</div>
@@ -451,9 +456,9 @@
       <div class="demo">
         <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Claude sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
         <div class="samples" aria-label="Tin nhắn ví dụ">
-          <button type="button" data-msg="Chào em, căn 2 phòng ngủ tầng cao bên dự án còn không? Giá bao nhiêu vậy em, chiều mai anh qua xem được không?">Khách hỏi xem nhà</button>
-          <button type="button" data-msg="Chị đặt cọc từ tuần trước mà tới giờ chưa nhận được phiếu thu. Gọi sale hoài không bắt máy, làm ăn kiểu gì vậy?">Khách đang bực</button>
-          <button type="button" data-msg="Em ơi gửi giúp anh hoá đơn đợt 2 của căn C08 cho khách, khách cần trước 5h chiều nay.">Sale cần bill</button>
+          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">Cư dân mới cần lắp mạng</button>
+          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Kỹ thuật hẹn mà không tới</button>
+          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Sale cần bill</button>
         </div>
         <label for="msg" class="hint">Tin nhắn của khách</label>
         <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
@@ -477,6 +482,23 @@
         </ul>
       </div>
     </section>
+    <section class="block" id="inside" aria-labelledby="inside-h">
+      <h2 id="inside-h">Bên trong công cụ nội bộ</h2>
+      <div>
+        <p class="shots-intro">Hermes Desk ra đời từ Lead Radar, công cụ người sáng lập tự làm cho bàn điều phối của mình. Hai màn hình dưới đây dùng dữ liệu thật. Tên khách chỉ giữ chữ cái đầu, số điện thoại đã ẩn. Phần lớn khách ở bàn này do sale bất động sản giới thiệu, cần các dịch vụ như lắp mạng internet cho căn hộ mới.</p>
+        <div class="shots">
+          <figure>
+            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Màn hình Lead Radar liệt kê 13 lead mới từ Zalo từ 28 đến 30/9/2026, kèm nhu cầu, độ nóng và hạn trả lời. Sổ có 629 hồ sơ.">
+            <figcaption>Lead đang chờ trả lời, hạn trả lời theo độ nóng: nóng 30 phút, ấm 4 giờ, nguội 24 giờ.</figcaption>
+          </figure>
+          <figure>
+            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Màn hình Lead Radar chuyển 10 tag Zalo có sẵn thành 4 vai: khách, sale bất động sản, đối tác nhà mạng và khác. 1.594 liên hệ đã có vai.">
+            <figcaption>Tag Zalo có sẵn được chuyển thành vai cho 1.594 liên hệ. Luật cố định quyết trước, AI chỉ đoán với người chưa có tag.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section class="block" id="pricing" aria-labelledby="price-h">
       <h2 id="price-h">Bảng giá</h2>
       <div>
