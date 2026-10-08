@@ -469,16 +469,16 @@
       <h2 id="try">Dùng thử bản mẫu</h2>
       <div class="demo-wrap">
         <div class="inbox-intro">
-          <p class="demo-lede">Hộp thư buổi sáng của một người điều phối: sáu tin nhắn từ cư dân, sale và đối tác. Một cú bấm gửi cả sáu tin cho Claude trong một lần gọi. Claude chia chúng thành lead, khiếu nại và bill, đánh dấu mức gấp, chọn người xử lý cho từng tin và soạn sẵn câu trả lời để bạn duyệt.</p>
-          <div class="row"><button type="button" class="run" id="run-inbox">Để Claude phân loại hộp thư này</button><span class="hint" id="inbox-status">Chạy trực tiếp trên Claude API. Không gửi gì cho ai cả.</span></div>
+          <p class="demo-lede">Hộp thư buổi sáng của một người điều phối: sáu tin nhắn từ cư dân, sale và đối tác. Một cú bấm phân loại cả sáu tin trong một lần gọi: chia thành lead, khiếu nại và bill, đánh dấu mức gấp, chọn người xử lý cho từng tin và soạn sẵn câu trả lời để bạn duyệt.</p>
+          <div class="row"><button type="button" class="run" id="run-inbox">Phân loại hộp thư này</button><span class="hint" id="inbox-status">Chạy trực tiếp. Không gửi gì cho ai cả.</span></div>
         </div>
         <ol class="inbox" id="inbox-list" aria-label="Tin nhắn đến"></ol>
         <div class="board" id="board" aria-live="polite"></div>
-        <details class="raw" id="raw" hidden><summary>Xem phản hồi gốc của Claude</summary><pre id="raw-pre"></pre></details>
+        <details class="raw" id="raw" hidden><summary>Xem phản hồi gốc từ API</summary><pre id="raw-pre"></pre></details>
       </div>
       <div class="demo single">
         <h3 class="single-h">Hoặc tự gõ một tin nhắn để thử</h3>
-        <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Claude sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
+        <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Hermes Desk sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
         <div class="samples" aria-label="Tin nhắn ví dụ">
           <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">Cư dân mới cần lắp mạng</button>
           <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Kỹ thuật hẹn mà không tới</button>
@@ -488,7 +488,7 @@
         <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
         <div class="row">
           <button type="button" class="run" id="run">Phân loại tin nhắn</button>
-          <span class="hint">Chạy trực tiếp trên Claude API. Đừng nhập thông tin cá nhân thật.</span>
+          <span class="hint">Chạy trực tiếp. Đừng nhập thông tin cá nhân thật.</span>
         </div>
         <div class="result" id="result" aria-live="polite"></div>
       </div>
@@ -742,14 +742,14 @@
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
       const which = idx >= 0 && idx < saved.length ? 'ví dụ này' : 'ví dụ đầu tiên';
-      render(ex, 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật Claude đã tạo cho ' + which + ' vào ngày 8/10/2026.');
+      render(ex, 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho ' + which + ' vào ngày 8/10/2026.');
     } finally {
       run.disabled = false; run.textContent = 'Phân loại tin nhắn';
     }
   });
 
   // Inbox demo: six messages sorted in one Claude call.
-  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Claude đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Để Claude phân loại hộp thư này', done: (n, s, m, i, o) => 'Claude đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật Claude đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Claude chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.' };
+  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Phân loại hộp thư này', done: (n, s, m, i, o) => 'Đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.' };
   const INBOX = [
     { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
     { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },

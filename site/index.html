@@ -469,16 +469,16 @@
       <h2 id="try">Try the prototype</h2>
       <div class="demo-wrap">
         <div class="inbox-intro">
-          <p class="demo-lede">A coordinator's morning inbox: six messages from residents, sales agents and a partner. One click sends all six to Claude in a single request. Claude sorts them into leads, complaints and billing, marks urgency, picks who should handle each one, and drafts a reply for you to approve.</p>
-          <div class="row"><button type="button" class="run" id="run-inbox">Sort this inbox with Claude</button><span class="hint" id="inbox-status">Runs live on the Claude API. Nothing is sent to anyone.</span></div>
+          <p class="demo-lede">A coordinator's morning inbox: six messages from residents, sales agents and a partner. One click sorts all six in a single request: leads, complaints and billing, how urgent each one is, who should handle it, and a draft reply for you to approve.</p>
+          <div class="row"><button type="button" class="run" id="run-inbox">Sort this inbox</button><span class="hint" id="inbox-status">Runs live. Nothing is sent to anyone.</span></div>
         </div>
         <ol class="inbox" id="inbox-list" aria-label="Incoming messages"></ol>
         <div class="board" id="board" aria-live="polite"></div>
-        <details class="raw" id="raw" hidden><summary>View the raw Claude response</summary><pre id="raw-pre"></pre></details>
+        <details class="raw" id="raw" hidden><summary>View the raw API response</summary><pre id="raw-pre"></pre></details>
       </div>
       <div class="demo single">
         <h3 class="single-h">Or sort one message of your own</h3>
-        <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
+        <p class="hint">Pick an example or type a customer message in Vietnamese. Hermes Desk sorts it and drafts a reply. Nothing is sent to anyone.</p>
         <div class="samples" aria-label="Example messages">
           <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">New resident wants internet</button>
           <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Technician never came</button>
@@ -488,7 +488,7 @@
         <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
         <div class="row">
           <button type="button" class="run" id="run">Sort this message</button>
-          <span class="hint">Runs live on the Claude API. Do not paste real personal details.</span>
+          <span class="hint">Runs live. Do not paste real personal details.</span>
         </div>
         <div class="result" id="result" aria-live="polite"></div>
       </div>
@@ -742,14 +742,14 @@
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
       const which = idx >= 0 && idx < saved.length ? 'this example' : 'the first example';
-      render(ex, 'The live demo is unavailable right now (' + e.message.replace(/\.$/, '') + '). Below is a saved result Claude produced for ' + which + ' on 8 October 2026.');
+      render(ex, 'The live demo is unavailable right now (' + e.message.replace(/\.$/, '') + '). Below is a saved result the live demo produced for ' + which + ' on 8 October 2026.');
     } finally {
       run.disabled = false; run.textContent = 'Sort this message';
     }
   });
 
   // Inbox demo: six messages sorted in one Claude call.
-  const UI2 = { cols: { lead: 'New leads', complaint: 'Complaints', billing: 'Billing', other: 'Other' }, urg: { high: 'High', medium: 'Medium', low: 'Low' }, draft: 'Draft reply', approve: 'Approve draft', approved: 'Approved · not sent (demo)', busy: 'Claude is reading 6 messages…', again: 'Sort it again', run: 'Sort this inbox with Claude', done: (n, s, m, i, o) => 'Claude sorted ' + n + ' messages in ' + s + ' s in one request · ' + m + (i ? ' · ' + i + ' tokens in, ' + o + ' out' : ''), saved: 'The live demo is unavailable right now. Below is a saved result Claude produced for this inbox on 8 October 2026.', fail: 'Claude could not sort the inbox right now. Try again in a moment.', one: (s, m) => 'Answered in ' + s + ' s by ' + m + '.' };
+  const UI2 = { cols: { lead: 'New leads', complaint: 'Complaints', billing: 'Billing', other: 'Other' }, urg: { high: 'High', medium: 'Medium', low: 'Low' }, draft: 'Draft reply', approve: 'Approve draft', approved: 'Approved · not sent (demo)', busy: 'Reading 6 messages…', again: 'Sort it again', run: 'Sort this inbox', done: (n, s, m, i, o) => 'Sorted ' + n + ' messages in ' + s + ' s in one request · ' + m + (i ? ' · ' + i + ' tokens in, ' + o + ' out' : ''), saved: 'The live demo is unavailable right now. Below is a saved result the live demo produced for this inbox on 8 October 2026.', fail: 'The inbox could not be sorted right now. Try again in a moment.', one: (s, m) => 'Answered in ' + s + ' s by ' + m + '.' };
   const INBOX = [
     { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
     { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },
