@@ -110,6 +110,14 @@
     max-width: 46ch;
     margin: 0 0 32px;
   }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 22px; }
+  .ctas a { text-decoration: none; font-weight: 600; padding: 11px 22px; border-radius: 999px; border: 1.5px solid var(--air-blue); }
+  .ctas a.primary { background: var(--air-blue); color: #fff; }
+  .ctas a:not(.primary) { color: var(--air-blue); }
+  .faq details { border-top: 1px solid var(--rule); padding: 14px 0; }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary { font-weight: 600; cursor: pointer; }
+  .faq details p { margin: 10px 0 0; color: var(--muted); max-width: 64ch; }
   .status {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 0.9375rem; color: var(--muted);
@@ -360,7 +368,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Dùng thử</a><a href="#inside">Sản phẩm</a><a href="#pricing">Bảng giá</a><a href="#pilot">Tham gia pilot</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
+    <nav class="top"><a href="#demo">Dùng thử</a><a href="#inside">Sản phẩm</a><a href="#pricing">Bảng giá</a><a href="#pilot">Tham gia pilot</a><a href="#faq">Hỏi đáp</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <main>
@@ -368,6 +376,7 @@
       <div>
         <h1>Mọi tin nhắn khách hàng, được xử lý trước khi nguội.</h1>
         <p class="lede">Hermes Desk là bàn điều phối AI cho đội sale bất động sản tại Việt Nam. Hệ thống đọc tin nhắn khách gửi đến, phân loại lead, khiếu nại và yêu cầu bill, rồi soạn sẵn câu trả lời để người điều phối duyệt.</p>
+        <div class="ctas"><a class="primary" href="#demo">Dùng thử demo</a><a href="#pilot">Tham gia pilot miễn phí</a></div>
         <p class="status">10 điều phối viên dùng hằng ngày trong 2 tháng. Đang mở thêm cho các đội pilot mới.</p>
       </div>
 
@@ -539,6 +548,19 @@
           </div>
         </div>
         <p class="hint plans-note">Giá tính bằng đồng Việt Nam, thanh toán theo tháng. Mọi đội đều bắt đầu từ chương trình pilot. <a href="#pilot">Đăng ký tham gia</a>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">Hỏi đáp</h2>
+      <div class="faq">
+        <details><summary>Hermes Desk có tự gửi tin nhắn không?</summary><p>Không. Hệ thống phân loại từng tin và soạn nháp. Người điều phối đọc, sửa và duyệt từng câu trả lời trước khi gửi.</p></details>
+        <details><summary>Hermes Desk dùng AI nào?</summary><p>Bản demo trên trang này chạy bằng Claude Haiku qua Claude API. Công cụ nội bộ phân loại liên hệ bằng luật cố định trước và dùng Gemini Flash cho số ít liên hệ chưa có luật; bước này đang được chuyển sang Claude.</p></details>
+        <details><summary>Hệ thống xử lý ngôn ngữ nào?</summary><p>Đọc tin nhắn tiếng Việt kiểu chat thường ngày và soạn câu trả lời bằng tiếng Việt. Mỗi tin có thêm một dòng tóm tắt bằng tiếng Anh.</p></details>
+        <details><summary>Nội dung tôi gõ vào demo có bị lưu không?</summary><p>Không. Nội dung được gửi tới Claude API để phân loại và soạn trả lời, hiển thị cho bạn, và Hermes Desk không lưu lại. Vui lòng dùng tin nhắn ví dụ, không nhập thông tin thật của khách.</p></details>
+        <details><summary>Bắt đầu như thế nào?</summary><p>Đăng ký tham gia pilot miễn phí. Chúng tôi cài Hermes Desk cho bàn điều phối của bạn, sau đó bạn chọn gói Coordinator hoặc Team nếu muốn dùng tiếp.</p></details>
+        <details><summary>Tôi có thể yêu cầu xoá dữ liệu không?</summary><p>Có. Email <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a>, chúng tôi xử lý trong vòng 72 giờ. Xem <a href="/privacy.html">trang quyền riêng tư</a>.</p></details>
+        <details><summary>Ai đứng sau Hermes Desk?</summary><p>Hộ kinh doanh Trần Việt Tùng, đăng ký tại Việt Nam từ tháng 6/2024, mã số đăng ký 8375250387-001.</p></details>
       </div>
     </section>
 

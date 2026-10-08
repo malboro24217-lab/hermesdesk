@@ -110,6 +110,14 @@
     max-width: 46ch;
     margin: 0 0 32px;
   }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 22px; }
+  .ctas a { text-decoration: none; font-weight: 600; padding: 11px 22px; border-radius: 999px; border: 1.5px solid var(--air-blue); }
+  .ctas a.primary { background: var(--air-blue); color: #fff; }
+  .ctas a:not(.primary) { color: var(--air-blue); }
+  .faq details { border-top: 1px solid var(--rule); padding: 14px 0; }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary { font-weight: 600; cursor: pointer; }
+  .faq details p { margin: 10px 0 0; color: var(--muted); max-width: 64ch; }
   .status {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 0.9375rem; color: var(--muted);
@@ -360,7 +368,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Try it</a><a href="#inside">Product</a><a href="#pricing">Pricing</a><a href="#pilot">Join the pilot</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+    <nav class="top"><a href="#demo">Try it</a><a href="#inside">Product</a><a href="#pricing">Pricing</a><a href="#pilot">Join the pilot</a><a href="#faq">FAQ</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
   </header>
 
   <main>
@@ -368,6 +376,7 @@
       <div>
         <h1>Every customer message, routed before it goes cold.</h1>
         <p class="lede">Hermes Desk is an AI coordination desk for real estate sales teams in Vietnam. It reads incoming customer messages, sorts leads, complaints and billing requests, and drafts replies for a person to approve.</p>
+        <div class="ctas"><a class="primary" href="#demo">Try the live demo</a><a href="#pilot">Join the free pilot</a></div>
         <p class="status">In daily use for 2 months by 10 coordinators. Now opening to more pilot teams.</p>
       </div>
 
@@ -539,6 +548,19 @@
           </div>
         </div>
         <p class="hint plans-note">Prices in Vietnamese đồng, billed monthly. Every team starts with the pilot. <a href="#pilot">Request a spot</a>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">FAQ</h2>
+      <div class="faq">
+        <details><summary>Does Hermes Desk send messages on its own?</summary><p>No. It sorts each message and writes a draft. A person reads, edits and approves every reply before anything is sent.</p></details>
+        <details><summary>Which AI does it use?</summary><p>The demo on this page runs on Claude Haiku through the Claude API. Our internal tool sorts contacts with fixed rules first and uses Gemini Flash for the few contacts no rule covers; we are moving that step onto Claude.</p></details>
+        <details><summary>What languages does it handle?</summary><p>It reads casual Vietnamese chat and drafts replies in Vietnamese. Each message also gets a one-line English summary.</p></details>
+        <details><summary>Is the text I type into the demo saved?</summary><p>No. It is sent to the Claude API to be sorted and answered, shown to you, and not stored by Hermes Desk. Please use example messages, not real customer details.</p></details>
+        <details><summary>How do I start?</summary><p>Request a spot in the free pilot. We set Hermes Desk up for your desk, then you choose the Coordinator or Team plan if you want to keep it.</p></details>
+        <details><summary>Can I have my data deleted?</summary><p>Yes. Email <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a> and we act on the request within 72 hours. See the <a href="/privacy.html">privacy page</a>.</p></details>
+        <details><summary>Who is behind Hermes Desk?</summary><p>Hộ kinh doanh Trần Việt Tùng, a household business registered in Vietnam since June 2024, business registration no. 8375250387-001.</p></details>
       </div>
     </section>
 
