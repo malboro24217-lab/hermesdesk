@@ -2,7 +2,7 @@
 
 An AI coordination desk for real estate sales teams in Vietnam.
 
-A coordinator sits between buyers, sales agents and billing, all in one chat inbox. Hermes Desk reads each incoming Vietnamese message, sorts it as a new lead, a complaint or a billing request, marks urgency, routes it to the right person, and drafts a reply. A person approves every reply before anything is sent.
+A coordinator sits between residents referred by real estate sales agents, service partners and billing, all in one chat inbox. Hermes Desk reads each incoming Vietnamese message, sorts it as a new lead, a complaint or a billing request, marks urgency, routes it to the right person, and drafts a reply. A person approves every reply before anything is sent.
 
 Live site: https://hermesdesk.dev
 
