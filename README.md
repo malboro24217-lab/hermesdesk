@@ -16,7 +16,7 @@ Live site: https://hermesdesk.dev
 
 ## Run the prototype
 
-The site deploys on Netlify. The function needs one environment variable:
+The site deploys on Netlify. On Netlify, AI Gateway supplies the Claude credentials automatically, so no setup is needed. Elsewhere, the function reads:
 
 - `ANTHROPIC_API_KEY`: your Claude API key
 - `HERMES_MODEL` (optional): the Claude model to use, default `claude-haiku-5-5`
