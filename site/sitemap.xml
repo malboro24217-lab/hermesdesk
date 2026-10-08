@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://hermesdesk.dev/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermesdesk.dev/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://hermesdesk.dev/vi/"/>
+  </url>
+  <url>
+    <loc>https://hermesdesk.dev/vi/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermesdesk.dev/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://hermesdesk.dev/vi/"/>
+  </url>
+  <url><loc>https://hermesdesk.dev/blog/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://hermesdesk.dev/blog/why-we-built-hermes-desk.html</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://hermesdesk.dev/privacy.html</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://hermesdesk.dev/terms.html</loc><lastmod>2026-10-09</lastmod></url>
+</urlset>
