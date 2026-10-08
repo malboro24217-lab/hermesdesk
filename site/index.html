@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermes Desk</title>
+<meta name="description" content="Hermes Desk is an AI coordination desk for real estate sales teams in Vietnam. It reads incoming customer messages, routes leads, complaints and billing requests, and drafts replies for a person to approve.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBFBFD;
+    --ink: #1A1C24;
+    --muted: #5E6472;
+    --rule: #E3E5EC;
+    --air-blue: #1F3A93;
+    --air-red: #D2343A;
+    --lead: #1F3A93;
+    --complaint: #D2343A;
+    --bill: #7A5A00;
+    --bill-bg: #FFF3CF;
+    --card: #FFFFFF;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Instrument Sans", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #12141B;
+      --ink: #ECEEF4;
+      --muted: #A3A9B8;
+      --rule: #2A2E3A;
+      --card: #1A1D27;
+      --lead: #8FA8FF;
+      --complaint: #FF7B80;
+      --bill: #F2C94C;
+      --bill-bg: #3A3110;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--air-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header.site {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 0;
+  }
+  .wordmark {
+    font-family: var(--display); font-weight: 700; font-size: 1.25rem;
+    letter-spacing: -0.01em; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .wordmark svg { width: 26px; height: 26px; }
+  header.site nav a {
+    font-weight: 500; text-decoration: none; color: var(--muted);
+  }
+  header.site nav a:hover { color: var(--ink); }
+  header.site nav.top { display: flex; gap: 22px; }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+    padding: 48px 0 96px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5vw, 3.9rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+    max-width: 14ch;
+  }
+  .hero p.lede {
+    font-size: 1.1875rem;
+    color: var(--muted);
+    max-width: 46ch;
+    margin: 0 0 32px;
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.9375rem; color: var(--muted);
+  }
+  .status::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: #E0A100;
+  }
+
+  /* The desk: airmail envelope */
+  .envelope {
+    position: relative;
+    padding: 14px;
+    border-radius: 10px;
+    background:
+      repeating-linear-gradient(-45deg,
+        var(--air-red) 0 14px, transparent 14px 22px,
+        var(--air-blue) 22px 36px, transparent 36px 44px);
+  }
+  .desk {
+    background: var(--card);
+    border-radius: 4px;
+    padding: 22px 22px 18px;
+  }
+  .desk-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px; margin-bottom: 8px;
+  }
+  .desk-head strong { font-family: var(--display); font-size: 1.05rem; }
+  .desk-head span { font-size: 0.875rem; color: var(--muted); }
+
+  .msg {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .msg:last-of-type { border-bottom: 0; }
+  .msg .from { font-weight: 600; font-size: 0.9375rem; }
+  .msg .text { grid-column: 1 / 2; color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
+  .msg .tag {
+    grid-row: 1 / 3; grid-column: 2;
+    align-self: center;
+    font-size: 0.8125rem; font-weight: 600;
+    padding: 5px 11px; border-radius: 999px;
+    border: 1.5px solid currentColor;
+    white-space: nowrap;
+  }
+  .tag.lead { color: var(--lead); }
+  .tag.complaint { color: var(--complaint); }
+  .tag.bill { color: var(--bill); background: var(--bill-bg); border-color: transparent; }
+  .draft {
+    margin-top: 10px;
+    font-size: 0.875rem;
+    color: var(--muted);
+    border-top: 1px dashed var(--rule);
+    padding-top: 12px;
+  }
+  .draft b { color: var(--ink); font-weight: 600; }
+
+  /* One orchestrated moment: messages arrive, then get stamped */
+  @media (prefers-reduced-motion: no-preference) {
+    .msg { opacity: 0; transform: translateY(8px); animation: arrive .5s ease-out forwards; }
+    .msg:nth-of-type(1) { animation-delay: .3s; }
+    .msg:nth-of-type(2) { animation-delay: .9s; }
+    .msg:nth-of-type(3) { animation-delay: 1.5s; }
+    .msg .tag { opacity: 0; transform: scale(1.4) rotate(-6deg); animation: stamp .35s cubic-bezier(.2,.9,.3,1.3) forwards; }
+    .msg:nth-of-type(1) .tag { animation-delay: .75s; }
+    .msg:nth-of-type(2) .tag { animation-delay: 1.35s; }
+    .msg:nth-of-type(3) .tag { animation-delay: 1.95s; }
+    .draft { opacity: 0; animation: arrive .5s ease-out 2.4s forwards; }
+  }
+  @keyframes arrive { to { opacity: 1; transform: none; } }
+  @keyframes stamp { to { opacity: 1; transform: none; } }
+
+  /* Sections */
+  section.block {
+    border-top: 1px solid var(--rule);
+    padding: 72px 0;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+  }
+  section.block h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .prose p { margin: 0 0 16px; max-width: 62ch; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin: 8px 0 28px;
+  }
+  .fact .n {
+    font-family: var(--display); font-weight: 700;
+    font-size: 2.25rem; line-height: 1; letter-spacing: -0.02em;
+  }
+  .fact .l { color: var(--muted); font-size: 0.9375rem; margin-top: 8px; }
+
+  ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid; grid-template-columns: 48px 1fr; gap: 8px 16px;
+    padding: 0 0 28px;
+  }
+  ol.steps li:last-child { padding-bottom: 0; }
+  ol.steps li::before {
+    content: counter(step);
+    font-family: var(--display); font-weight: 700; font-size: 1.1rem;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center;
+    border: 1.5px solid var(--ink);
+    grid-row: 1 / 3;
+  }
+  ol.steps h3 { font-size: 1.125rem; margin: 6px 0 0; font-weight: 600; }
+  ol.steps p { margin: 0; color: var(--muted); max-width: 58ch; }
+
+  ul.plain { margin: 0; padding-left: 1.1em; }
+  ul.plain li { margin-bottom: 10px; max-width: 60ch; }
+
+  /* Live demo */
+  .demo { display: grid; gap: 16px; max-width: 640px; }
+  .samples { display: flex; flex-wrap: wrap; gap: 8px; }
+  .samples button, .demo .run {
+    font: inherit; font-size: 0.9375rem; cursor: pointer;
+    border-radius: 999px; padding: 7px 14px;
+  }
+  .samples button {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+  .samples button:hover { border-color: var(--ink); }
+  .demo textarea {
+    font: inherit; font-size: 1rem; color: var(--ink);
+    background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 12px 14px; min-height: 96px; resize: vertical; width: 100%;
+  }
+  .demo textarea:focus-visible { outline: 3px solid var(--air-blue); outline-offset: 2px; }
+  .demo .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .demo .run {
+    background: var(--air-blue); color: #fff; border: 0; font-weight: 600; padding: 10px 20px;
+  }
+  .demo .run[disabled] { opacity: .6; cursor: progress; }
+  .demo .hint { font-size: 0.875rem; color: var(--muted); }
+  .result {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 18px 20px; display: none;
+  }
+  .result.show { display: block; }
+  .result .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .result .pill {
+    font-size: 0.8125rem; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    border: 1.5px solid var(--rule); color: var(--ink);
+  }
+  .result .summary { color: var(--muted); margin: 0 0 12px; }
+  .result .draft-label { font-size: 0.875rem; font-weight: 600; margin: 0 0 6px; }
+  .result .draft-text {
+    margin: 0; padding: 12px 14px; border-left: 3px solid var(--air-blue);
+    background: var(--paper); white-space: pre-wrap;
+  }
+  .result .approve { font-size: 0.875rem; color: var(--muted); margin: 12px 0 0; }
+  .result.error { color: var(--complaint); }
+
+  .founder p { margin: 0 0 14px; max-width: 62ch; }
+
+  footer.site nav { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  footer.site {
+    border-top: 1px solid var(--rule);
+    padding: 40px 0 56px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px;
+    color: var(--muted); font-size: 0.9375rem;
+  }
+  footer.site a { color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; padding: 24px 0 72px; }
+    section.block { grid-template-columns: 1fr; gap: 20px; padding: 56px 0; }
+    .facts { grid-template-columns: 1fr; gap: 20px; }
+  }
+  @media (max-width: 420px) {
+    .wrap { padding: 0 16px; }
+    .msg { grid-template-columns: 1fr; }
+    .msg .tag { grid-row: auto; grid-column: 1; justify-self: start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <a class="wordmark" href="/" aria-label="Hermes Desk home">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="3" y="8" width="26" height="17" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/>
+        <path d="M3.5 9 L16 18 L28.5 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M20 4 l4 0 M22 2 l0 4" stroke="#D2343A" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      Hermes Desk
+    </a>
+    <nav class="top"><a href="#demo">Try it</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Every customer message, routed before it goes cold.</h1>
+        <p class="lede">Hermes Desk is an AI coordination desk for real estate sales teams in Vietnam. It reads incoming customer messages, sorts leads, complaints and billing requests, and drafts replies for a person to approve.</p>
+        <p class="status">In development. Piloting on our own coordination work.</p>
+      </div>
+
+      <div class="envelope" role="img" aria-label="Example: three incoming customer messages sorted into a lead, a complaint and a billing request, with a drafted reply waiting for approval.">
+        <div class="desk">
+          <div class="desk-head">
+            <strong>Incoming</strong>
+            <span>Example messages</span>
+          </div>
+          <div class="msg">
+            <div class="from">Anh Minh</div>
+            <div class="text">Căn 2PN view hồ còn không em? Cuối tuần anh qua xem được không?</div>
+            <span class="tag lead">New lead</span>
+          </div>
+          <div class="msg">
+            <div class="from">Chị Lan</div>
+            <div class="text">Hẹn sale 3 lần mà chưa ai liên hệ lại, chị rất không hài lòng.</div>
+            <span class="tag complaint">Complaint</span>
+          </div>
+          <div class="msg">
+            <div class="from">Sale Hùng</div>
+            <div class="text">Gửi giúp anh bill đặt cọc căn B12 cho khách nhé.</div>
+            <span class="tag bill">Billing</span>
+          </div>
+          <div class="draft"><b>Draft ready for Chị Lan</b>, escalated to the team lead. Waiting for your approval.</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="block" aria-labelledby="problem">
+      <h2 id="problem">The problem</h2>
+      <div class="prose">
+        <div class="facts">
+          <div class="fact"><div class="n">10–15</div><div class="l">new leads a day for one coordinator</div></div>
+          <div class="fact"><div class="n">13 hrs</div><div class="l">of chat coverage, 8 am to 9 pm</div></div>
+          <div class="fact"><div class="n">3</div><div class="l">kinds of work mixed in one inbox</div></div>
+        </div>
+        <p>In Vietnamese real estate, buyers, sales agents and billing all run through chat. One coordinator sits in the middle: answering new buyers, chasing agents, sending deposit bills and calming complaints, all in the same thread of messages.</p>
+        <p>When that inbox gets busy, a hot lead waits an hour, an angry buyer waits a day, and a bill gets forgotten. These numbers come from our founder's own working day.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Read</h3>
+          <p>Hermes Desk reads each incoming message in Vietnamese, along with the conversation history for that customer.</p>
+        </li>
+        <li>
+          <h3>Route</h3>
+          <p>It sorts the message as a new lead, a complaint or a billing request, marks how urgent it is, and assigns it to the right person.</p>
+        </li>
+        <li>
+          <h3>Draft for approval</h3>
+          <p>It writes a reply in the coordinator's tone. Nothing is sent until a person approves it.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="block" id="demo" aria-labelledby="try">
+      <h2 id="try">Try the prototype</h2>
+      <div class="demo">
+        <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
+        <div class="samples" aria-label="Example messages">
+          <button type="button" data-msg="Chào em, căn 2 phòng ngủ tầng cao bên dự án còn không? Giá bao nhiêu vậy em, chiều mai anh qua xem được không?">Buyer asking to view</button>
+          <button type="button" data-msg="Chị đặt cọc từ tuần trước mà tới giờ chưa nhận được phiếu thu. Gọi sale hoài không bắt máy, làm ăn kiểu gì vậy?">Angry buyer</button>
+          <button type="button" data-msg="Em ơi gửi giúp anh hoá đơn đợt 2 của căn C08 cho khách, khách cần trước 5h chiều nay.">Agent needs a bill</button>
+        </div>
+        <label for="msg" class="hint">Customer message</label>
+        <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
+        <div class="row">
+          <button type="button" class="run" id="run">Sort this message</button>
+          <span class="hint">Runs on Claude. Do not paste real personal details.</span>
+        </div>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="built">
+      <h2 id="built">Built with Claude</h2>
+      <div class="prose">
+        <ul class="plain">
+          <li>Claude reads and classifies messages, and drafts replies in natural Vietnamese.</li>
+          <li>A person approves every reply. The AI never speaks to a customer on its own.</li>
+          <li>We start with our own daily coordination work, then open the desk to other sales teams.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="block founder" id="about" aria-labelledby="who">
+      <h2 id="who">Who is building it</h2>
+      <div>
+        <p>Hermes Desk is built by Việt Tùng, a coordinator who works every day between buyers, sales agents and billing on real estate projects in Vietnam. He handles leads, sends bills and resolves complaints across a chat inbox that runs from 8 am to 9 pm.</p>
+        <p>Hermes Desk is the tool he is building for his own desk first. Once it holds up in his daily work, it will open to other coordinators and sales teams.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site" id="contact">
+    <span>Hermes Desk, founded by Việt Tùng. <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a></span>
+    <nav aria-label="Footer">
+      <a href="https://github.com/malboro24217-lab/hermesdesk">Source on GitHub</a>
+      <a href="/privacy.html">Privacy</a>
+    </nav>
+  </footer>
+
+</div>
+<script>
+(function () {
+  const msg = document.getElementById('msg');
+  const run = document.getElementById('run');
+  const out = document.getElementById('result');
+  const labels = {
+    category: { lead: 'New lead', complaint: 'Complaint', billing: 'Billing', other: 'Other' },
+    urgency: { high: 'High urgency', medium: 'Medium urgency', low: 'Low urgency' },
+    route_to: { sales_agent: 'Route to sales agent', team_lead: 'Escalate to team lead', billing: 'Route to billing', coordinator: 'Keep with coordinator' }
+  };
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  document.querySelectorAll('.samples button').forEach((b) => {
+    b.addEventListener('click', () => { msg.value = b.dataset.msg; msg.focus(); });
+  });
+
+  run.addEventListener('click', async () => {
+    const text = msg.value.trim();
+    if (!text) { msg.focus(); return; }
+    run.disabled = true; run.textContent = 'Sorting…';
+    out.className = 'result'; out.innerHTML = '';
+    try {
+      const res = await fetch('/api/classify', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'The demo is offline right now.');
+      out.innerHTML =
+        '<div class="meta">' +
+          '<span class="pill">' + esc(labels.category[data.category] || data.category) + '</span>' +
+          '<span class="pill">' + esc(labels.urgency[data.urgency] || data.urgency) + '</span>' +
+          '<span class="pill">' + esc(labels.route_to[data.route_to] || data.route_to) + '</span>' +
+        '</div>' +
+        '<p class="summary">' + esc(data.summary_en) + '</p>' +
+        '<p class="draft-label">Draft reply</p>' +
+        '<p class="draft-text" lang="vi">' + esc(data.draft_vi) + '</p>' +
+        '<p class="approve">Waiting for the coordinator to approve. Nothing has been sent.</p>';
+      out.className = 'result show';
+    } catch (e) {
+      out.textContent = e.message;
+      out.className = 'result show error';
+    } finally {
+      run.disabled = false; run.textContent = 'Sort this message';
+    }
+  });
+})();
+</script>
+</body>
+</html>
