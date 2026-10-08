@@ -247,6 +247,47 @@
   ul.plain { margin: 0; padding-left: 1.1em; }
   ul.plain li { margin-bottom: 10px; max-width: 60ch; }
 
+  [hidden] { display: none !important; }
+  /* Inbox demo */
+  section.block.wide { grid-template-columns: 1fr; gap: 28px; }
+  .demo-wrap { display: grid; gap: 18px; }
+  .demo-lede { margin: 0 0 14px; max-width: 70ch; }
+  .demo-wrap .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .demo-wrap .run { font: inherit; font-weight: 600; cursor: pointer; border-radius: 999px; background: var(--air-blue); color: #fff; border: 0; padding: 12px 24px; font-size: 1rem; }
+  .demo-wrap .run[disabled] { opacity: .65; cursor: progress; }
+  .demo-wrap .hint { font-size: 0.875rem; color: var(--muted); }
+  .inbox { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .inbox li { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-size: 0.9375rem; }
+  .inbox li b { display: block; font-size: 0.8125rem; margin-bottom: 2px; }
+  .inbox.busy li { animation: pulse 1.2s ease-in-out infinite; }
+  .inbox.busy li:nth-child(2n) { animation-delay: .3s; }
+  @keyframes pulse { 50% { border-color: var(--air-blue); } }
+  .board { display: none; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start; }
+  .board.show { display: grid; }
+  .board.four { grid-template-columns: repeat(4, 1fr); }
+  .col h3 { font-size: 0.9375rem; margin: 0 0 10px; display: flex; justify-content: space-between; }
+  .col h3 span { color: var(--muted); font-weight: 400; }
+  .col.lead h3 { color: var(--lead); } .col.complaint h3 { color: var(--complaint); } .col.billing h3 { color: var(--bill); }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px; margin-bottom: 10px; font-size: 0.9375rem; animation: rise .35s ease-out both; }
+  .card header { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .card .urg { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); white-space: nowrap; }
+  .card .urg.high { color: var(--complaint); border-color: currentColor; }
+  .card .orig { color: var(--muted); margin: 0 0 8px; font-size: 0.875rem; }
+  .card .sum { margin: 0 0 6px; }
+  .card .route { font-size: 0.8125rem; font-weight: 600; margin: 0 0 8px; }
+  .card textarea { width: 100%; font: inherit; font-size: 0.875rem; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; min-height: 92px; resize: vertical; }
+  .card .ok { margin-top: 8px; font: inherit; font-size: 0.8125rem; font-weight: 600; cursor: pointer; border-radius: 999px; padding: 6px 14px; background: transparent; color: var(--air-blue); border: 1.5px solid var(--air-blue); }
+  .card.approved { border-color: var(--air-blue); }
+  .card.approved .ok { background: var(--air-blue); color: #fff; cursor: default; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .card, .inbox.busy li { animation: none; } }
+  .raw summary { cursor: pointer; font-size: 0.875rem; color: var(--muted); }
+  .raw pre { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; font-size: 0.75rem; overflow: auto; max-height: 360px; white-space: pre-wrap; word-break: break-word; }
+  .demo.single { margin-top: 28px; padding-top: 28px; border-top: 1px dashed var(--rule); }
+  .single-h { font-size: 1.0625rem; margin: 0; }
+  @media (max-width: 900px) { .inbox, .board, .board.four { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .inbox, .board, .board.four { grid-template-columns: 1fr; } }
+
   /* Live demo */
   .demo { display: grid; gap: 16px; max-width: 640px; }
   .samples { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -424,9 +465,19 @@
       </ol>
     </section>
 
-    <section class="block" id="demo" aria-labelledby="try">
+    <section class="block wide" id="demo" aria-labelledby="try">
       <h2 id="try">Try the prototype</h2>
-      <div class="demo">
+      <div class="demo-wrap">
+        <div class="inbox-intro">
+          <p class="demo-lede">A coordinator's morning inbox: six messages from residents, sales agents and a partner. One click sends all six to Claude in a single request. Claude sorts them into leads, complaints and billing, marks urgency, picks who should handle each one, and drafts a reply for you to approve.</p>
+          <div class="row"><button type="button" class="run" id="run-inbox">Sort this inbox with Claude</button><span class="hint" id="inbox-status">Runs live on the Claude API. Nothing is sent to anyone.</span></div>
+        </div>
+        <ol class="inbox" id="inbox-list" aria-label="Incoming messages"></ol>
+        <div class="board" id="board" aria-live="polite"></div>
+        <details class="raw" id="raw" hidden><summary>View the raw Claude response</summary><pre id="raw-pre"></pre></details>
+      </div>
+      <div class="demo single">
+        <h3 class="single-h">Or sort one message of your own</h3>
         <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
         <div class="samples" aria-label="Example messages">
           <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">New resident wants internet</button>
@@ -686,6 +737,7 @@
       if (res.status === 400) { out.textContent = data.error || 'Check the message and try again.'; out.className = 'result show error'; return; }
       if (!res.ok) throw new Error(data.error || 'The demo is offline right now.');
       render(data);
+      if (data.ms) out.insertAdjacentHTML('beforeend', '<p class="approve">' + esc(UI2.one((data.ms / 1000).toFixed(1), data.model)) + '</p>');
     } catch (e) {
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
@@ -693,6 +745,67 @@
       render(ex, 'The live demo is unavailable right now (' + e.message.replace(/\.$/, '') + '). Below is a saved result Claude produced for ' + which + ' on 8 October 2026.');
     } finally {
       run.disabled = false; run.textContent = 'Sort this message';
+    }
+  });
+
+  // Inbox demo: six messages sorted in one Claude call.
+  const UI2 = { cols: { lead: 'New leads', complaint: 'Complaints', billing: 'Billing', other: 'Other' }, urg: { high: 'High', medium: 'Medium', low: 'Low' }, draft: 'Draft reply', approve: 'Approve draft', approved: 'Approved · not sent (demo)', busy: 'Claude is reading 6 messages…', again: 'Sort it again', run: 'Sort this inbox with Claude', done: (n, s, m, i, o) => 'Claude sorted ' + n + ' messages in ' + s + ' s in one request · ' + m + (i ? ' · ' + i + ' tokens in, ' + o + ' out' : ''), saved: 'The live demo is unavailable right now. Below is a saved result Claude produced for this inbox on 8 October 2026.', fail: 'Claude could not sort the inbox right now. Try again in a moment.', one: (s, m) => 'Answered in ' + s + ' s by ' + m + '.' };
+  const INBOX = [
+    { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
+    { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },
+    { from: 'Sale Hùng', text: 'Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.' },
+    { from: 'Chị My', text: 'Mạng nhà chị lắp hôm thứ Hai mà tối nào cũng rớt, gọi tổng đài không ai nghe.' },
+    { from: 'Anh Tuấn', text: 'Bên em có gói camera cho căn hộ không, chi phí khoảng bao nhiêu? Anh chưa gấp, tháng sau mới dọn vào.' },
+    { from: 'Sale Linh', text: 'Khoản hoa hồng khách căn A12 tháng trước bên mình chuyển cho chị chưa em? Chị chưa thấy tiền về.' }
+  ];
+  const SAVED_INBOX = null;
+  const list = document.getElementById('inbox-list');
+  const board = document.getElementById('board');
+  const runInbox = document.getElementById('run-inbox');
+  const inboxStatus = document.getElementById('inbox-status');
+  const raw = document.getElementById('raw');
+  const rawPre = document.getElementById('raw-pre');
+  list.innerHTML = INBOX.map((m) => '<li><b>' + esc(m.from) + '</b>' + esc(m.text) + '</li>').join('');
+  const rank = { high: 0, medium: 1, low: 2 };
+  const renderBoard = (data, note) => {
+    const groups = { lead: [], complaint: [], billing: [], other: [] };
+    (data.items || []).forEach((it) => {
+      const src = INBOX[it.index - 1]; if (!src) return;
+      (groups[it.category] || groups.other).push({ ...it, src });
+    });
+    const cols = ['lead', 'complaint', 'billing'].concat(groups.other.length ? ['other'] : []);
+    let k = 0;
+    board.innerHTML = cols.map((c) => '<div class="col ' + c + '"><h3>' + esc(UI2.cols[c]) + ' <span>' + groups[c].length + '</span></h3>' +
+      groups[c].sort((a, b) => (rank[a.urgency] ?? 3) - (rank[b.urgency] ?? 3)).map((it) =>
+        '<article class="card" style="animation-delay:' + (k++ * 90) + 'ms"><header><b>' + esc(it.src.from) + '</b><span class="urg ' + esc(it.urgency) + '">' + esc(UI2.urg[it.urgency] || it.urgency) + '</span></header>' +
+        '<p class="orig" lang="vi">' + esc(it.src.text) + '</p>' +
+        '<p class="sum">' + esc(it.summary_en) + '</p>' +
+        '<p class="route">→ ' + esc(labels.route_to[it.route_to] || it.route_to) + '</p>' +
+        '<textarea lang="vi" aria-label="' + esc(UI2.draft) + '">' + esc(it.draft_vi) + '</textarea>' +
+        '<button type="button" class="ok">' + esc(UI2.approve) + '</button></article>').join('') + '</div>').join('');
+    board.className = 'board show' + (cols.length === 4 ? ' four' : '');
+    list.hidden = true;
+    inboxStatus.textContent = note || UI2.done(data.items.length, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens);
+    rawPre.textContent = JSON.stringify(data, null, 2);
+    raw.hidden = false;
+  };
+  board.addEventListener('click', (e) => {
+    const b = e.target.closest('.ok'); if (!b) return;
+    const card = b.closest('.card'); if (card.classList.contains('approved')) return;
+    card.classList.add('approved'); card.querySelector('textarea').readOnly = true; b.textContent = UI2.approved;
+  });
+  runInbox.addEventListener('click', async () => {
+    runInbox.disabled = true; runInbox.textContent = UI2.busy;
+    list.hidden = false; list.classList.add('busy'); board.className = 'board'; raw.hidden = true;
+    try {
+      const res = await fetch('/api/classify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ messages: INBOX }) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !Array.isArray(data.items)) throw new Error(data.error || 'offline');
+      renderBoard(data);
+    } catch (e) {
+      if (SAVED_INBOX) renderBoard(SAVED_INBOX, UI2.saved); else inboxStatus.textContent = UI2.fail;
+    } finally {
+      list.classList.remove('busy'); runInbox.disabled = false; runInbox.textContent = UI2.again;
     }
   });
 
