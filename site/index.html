@@ -295,8 +295,10 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .plans.two { grid-template-columns: repeat(2, 1fr); }
+  .plan .price.quote { font-size: 1.25rem; }
   @media (max-width: 760px) {
-    .plans { grid-template-columns: 1fr; }
+    .plans, .plans.two { grid-template-columns: 1fr; }
     .plan, .plan + .plan { padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
   }
 
@@ -352,7 +354,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Try it</a><a href="#pricing">Pricing</a><a href="#pilot">Join the pilot</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+    <nav class="top"><a href="#demo">Try it</a><a href="#pricing">Pricing</a><a href="#services">Services</a><a href="#pilot">Join the pilot</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
   </header>
 
   <main>
@@ -510,6 +512,37 @@
           </div>
         </div>
         <p class="hint plans-note">Prices in Vietnamese đồng, billed monthly. Every team starts with the pilot. <a href="#pilot">Request a spot</a>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="services" aria-labelledby="services-h">
+      <h2 id="services-h">Services</h2>
+      <div>
+        <div class="plans two">
+          <div class="plan">
+            <h3>Hermes Desk setup for your sales team</h3>
+            <p class="price quote">Quoted per team</p>
+            <p class="for">We connect Zalo, Messenger and email and tune the reply voice for each team.</p>
+            <ul>
+              <li>Map your existing Zalo tags and contacts to roles: customer, sales agent, partner</li>
+              <li>New messages synced into the desk every 5 minutes, with no duplicates when a customer writes again</li>
+              <li>Reply timers by lead heat: 30 minutes for hot, 4 hours for warm, 24 hours for cold</li>
+              <li>Reply voice learned from messages your team has already sent, not written from scratch</li>
+            </ul>
+          </div>
+          <div class="plan">
+            <h3>Custom AI workflow for your coordination desk</h3>
+            <p class="price quote">Quoted per desk</p>
+            <p class="for">Routing, reply templates and handover rules, designed around how your desk works.</p>
+            <ul>
+              <li>Routing written as plain one-line rules. AI only handles the cases no rule covers, and flags them for you</li>
+              <li>A reply template for each pair of role and event, drawn from your real conversations</li>
+              <li>Per-role guardrails: a customer never sees partner commissions, a partner never sees customer payments</li>
+              <li>Handover rules for complaints, money and anything unusual, which always go to a person</li>
+            </ul>
+          </div>
+        </div>
+        <p class="hint plans-note">Every setup starts in draft-only mode: nothing is sent until a person approves it. <a href="#contact">Talk to us</a> about your desk.</p>
       </div>
     </section>
 

@@ -295,8 +295,10 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .plans.two { grid-template-columns: repeat(2, 1fr); }
+  .plan .price.quote { font-size: 1.25rem; }
   @media (max-width: 760px) {
-    .plans { grid-template-columns: 1fr; }
+    .plans, .plans.two { grid-template-columns: 1fr; }
     .plan, .plan + .plan { padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
   }
 
@@ -352,7 +354,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Dùng thử</a><a href="#pricing">Bảng giá</a><a href="#pilot">Tham gia pilot</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
+    <nav class="top"><a href="#demo">Dùng thử</a><a href="#pricing">Bảng giá</a><a href="#services">Dịch vụ</a><a href="#pilot">Tham gia pilot</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <main>
@@ -510,6 +512,37 @@
           </div>
         </div>
         <p class="hint plans-note">Giá tính bằng đồng Việt Nam, thanh toán theo tháng. Mọi đội đều bắt đầu từ chương trình pilot. <a href="#pilot">Đăng ký tham gia</a>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="services" aria-labelledby="services-h">
+      <h2 id="services-h">Dịch vụ</h2>
+      <div>
+        <div class="plans two">
+          <div class="plan">
+            <h3>Cài đặt Hermes Desk cho đội sale</h3>
+            <p class="price quote">Báo giá theo đội</p>
+            <p class="for">Kết nối Zalo, Messenger, email và tinh chỉnh giọng trả lời cho từng đội.</p>
+            <ul>
+              <li>Chuyển tag Zalo và danh bạ sẵn có thành vai: khách hàng, sale, đối tác</li>
+              <li>Tin nhắn mới được đồng bộ vào bàn điều phối mỗi 5 phút, khách nhắn lại không bị tạo trùng hồ sơ</li>
+              <li>Hạn phản hồi theo độ nóng của lead: nóng 30 phút, ấm 4 giờ, nguội 24 giờ</li>
+              <li>Giọng trả lời học từ chính những tin đội bạn đã gửi, không viết lại từ đầu</li>
+            </ul>
+          </div>
+          <div class="plan">
+            <h3>Thiết kế quy trình AI riêng cho bàn điều phối</h3>
+            <p class="price quote">Báo giá theo bàn điều phối</p>
+            <p class="for">Phân luồng, mẫu trả lời, quy tắc chuyển người xử lý, thiết kế theo đúng cách bàn của bạn vận hành.</p>
+            <ul>
+              <li>Phân luồng viết thành luật một dòng dễ đọc. AI chỉ xử lý ca chưa có luật và đánh dấu để bạn xem</li>
+              <li>Mẫu trả lời cho từng cặp vai và tình huống, rút từ hội thoại thật của bạn</li>
+              <li>Bộ lọc theo vai: khách không bao giờ thấy hoa hồng đối tác, đối tác không thấy khoản khách đã trả</li>
+              <li>Quy tắc chuyển người: khiếu nại, tiền bạc và mọi ca bất thường luôn do người xử lý</li>
+            </ul>
+          </div>
+        </div>
+        <p class="hint plans-note">Mọi lần cài đặt đều bắt đầu ở chế độ chỉ soạn nháp: không gì được gửi đi khi chưa có người duyệt. <a href="#contact">Liên hệ</a> để trao đổi về bàn điều phối của bạn.</p>
       </div>
     </section>
 
