@@ -180,6 +180,29 @@
   }
   .draft b { color: var(--ink); font-weight: 600; }
 
+  .mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-top: 6px; }
+  .mcol h4 { margin: 0 0 8px; font-size: 0.8125rem; letter-spacing: .02em; }
+  .mcol.lead h4 { color: var(--lead); } .mcol.complaint h4 { color: var(--complaint); } .mcol.billing h4 { color: var(--bill); }
+  .mcard { border: 1px solid var(--rule); border-radius: 8px; padding: 8px 9px; margin-bottom: 8px; background: var(--paper); }
+  .mcard b { font-size: 0.8125rem; }
+  .mcard .u { float: right; font-style: normal; font-size: 0.6875rem; font-weight: 600; color: var(--muted); }
+  .mcard .u.high { color: var(--complaint); }
+  .mcard p { margin: 4px 0 0; font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
+  .desk-foot { margin-top: 10px; font-size: 0.8125rem; color: var(--muted); }
+  .desk-foot a { color: var(--air-blue); font-weight: 600; }
+  @media (prefers-reduced-motion: no-preference) {
+    .mcard { opacity: 0; transform: translateY(-10px) scale(.97); animation: drop .45s cubic-bezier(.2,.9,.3,1.2) forwards; }
+    .mcol:nth-child(1) .mcard:nth-of-type(1) { animation-delay: .3s; }
+    .mcol:nth-child(2) .mcard:nth-of-type(1) { animation-delay: .5s; }
+    .mcol:nth-child(3) .mcard:nth-of-type(1) { animation-delay: .7s; }
+    .mcol:nth-child(1) .mcard:nth-of-type(2) { animation-delay: .9s; }
+    .mcol:nth-child(2) .mcard:nth-of-type(2) { animation-delay: 1.1s; }
+    .mcol:nth-child(3) .mcard:nth-of-type(2) { animation-delay: 1.3s; }
+    .desk .draft { opacity: 0; animation: arrive .5s ease-out 1.7s forwards; }
+  }
+  @keyframes drop { to { opacity: 1; transform: none; } }
+  @media (max-width: 560px) { .mini { grid-template-columns: 1fr; } }
+
   /* One orchestrated moment: messages arrive, then get stamped */
   @media (prefers-reduced-motion: no-preference) {
     .msg { opacity: 0; transform: translateY(8px); animation: arrive .5s ease-out forwards; }
@@ -248,6 +271,12 @@
   ul.plain li { margin-bottom: 10px; max-width: 60ch; }
 
   [hidden] { display: none !important; }
+  @media (prefers-color-scheme: dark) {
+    .ctas a:not(.primary), .desk-foot a, .card .ok { color: var(--lead); border-color: var(--lead); }
+    .card.approved .ok { background: #1F3A93; color: #fff; border-color: #1F3A93; }
+    .card.approved { border-color: var(--lead); }
+    a:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline-color: var(--lead) !important; }
+  }
   /* Inbox demo */
   section.block.wide { grid-template-columns: 1fr; gap: 28px; }
   .demo-wrap { display: grid; gap: 18px; }
@@ -280,6 +309,7 @@
   .card.approved { border-color: var(--air-blue); }
   .card.approved .ok { background: var(--air-blue); color: #fff; cursor: default; }
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .board.fly .card { animation: none; }
   @media (prefers-reduced-motion: reduce) { .card, .inbox.busy li { animation: none; } }
   .raw summary { cursor: pointer; font-size: 0.875rem; color: var(--muted); }
   .raw pre { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; font-size: 0.75rem; overflow: auto; max-height: 360px; white-space: pre-wrap; word-break: break-word; }
@@ -416,33 +446,33 @@
     <div class="hero">
       <div>
         <h1>Mọi tin nhắn khách hàng, được xử lý trước khi nguội.</h1>
-        <p class="lede">Hermes Desk là bàn điều phối AI cho đội sale bất động sản tại Việt Nam. Hệ thống đọc tin nhắn khách gửi đến, phân loại lead, khiếu nại và yêu cầu bill, rồi soạn sẵn câu trả lời để người điều phối duyệt.</p>
+        <p class="lede">Hermes Desk là bàn điều phối AI cho những người tiếp nhận khách do sale bất động sản giới thiệu tại Việt Nam. Hệ thống đọc tin nhắn khách gửi đến, phân loại lead, khiếu nại và yêu cầu bill, rồi soạn sẵn câu trả lời để người điều phối duyệt.</p>
         <div class="ctas"><a class="primary" href="#demo">Dùng thử demo</a><a href="#pilot">Tham gia pilot miễn phí</a></div>
         <p class="status">10 điều phối viên dùng hằng ngày trong 2 tháng. Đang mở thêm cho các đội pilot mới.</p>
       </div>
 
-      <div class="envelope" role="img" aria-label="Ví dụ: ba tin nhắn khách hàng được phân loại thành lead, khiếu nại và yêu cầu bill, kèm một câu trả lời nháp đang chờ duyệt.">
+      <div class="envelope" role="img" aria-label="Kết quả thật từ bản demo: sáu tin nhắn trong hộp thư buổi sáng được chia thành hai lead mới, hai khiếu nại và hai yêu cầu bill, kèm mức gấp, và một câu trả lời nháp đang chờ duyệt.">
         <div class="desk">
           <div class="desk-head">
-            <strong>Tin nhắn đến</strong>
-            <span>Tin nhắn ví dụ</span>
+            <strong>Hộp thư sáng nay, đã phân loại</strong>
+            <span>Kết quả demo thật</span>
           </div>
-          <div class="msg">
-            <div class="from">Anh Minh</div>
-            <div class="text">Căn 2PN anh mới nhận nhà, lắp mạng Mesh bao nhiêu em? Mai lắp được không?</div>
-            <span class="tag lead">Lead mới</span>
+          <div class="mini">
+            <div class="mcol lead"><h4>Lead mới</h4>
+              <div class="mcard"><b>Chị Hà</b><i class="u high">Gấp</i><p>Lắp wifi Mesh, mai lắp được không?</p></div>
+              <div class="mcard"><b>Anh Tuấn</b><i class="u">Không gấp</i><p>Hỏi gói camera, tháng sau dọn vào</p></div>
+            </div>
+            <div class="mcol complaint"><h4>Khiếu nại</h4>
+              <div class="mcard"><b>Anh Quân</b><i class="u high">Gấp</i><p>Hẹn kỹ thuật mà không ai tới</p></div>
+              <div class="mcard"><b>Chị My</b><i class="u high">Gấp</i><p>Mạng tối nào cũng rớt</p></div>
+            </div>
+            <div class="mcol billing"><h4>Bill</h4>
+              <div class="mcard"><b>Sale Hùng</b><i class="u high">Gấp</i><p>Xin hoá đơn căn C08 trước 5h</p></div>
+              <div class="mcard"><b>Sale Linh</b><i class="u">Vừa</i><p>Hỏi hoa hồng căn A12</p></div>
+            </div>
           </div>
-          <div class="msg">
-            <div class="from">Chị Lan</div>
-            <div class="text">Hẹn kỹ thuật 3 lần mà chưa ai qua lắp, chị rất không hài lòng.</div>
-            <span class="tag complaint">Khiếu nại</span>
-          </div>
-          <div class="msg">
-            <div class="from">Sale Hùng</div>
-            <div class="text">Khách căn B12 anh giới thiệu lắp xong rồi, gửi giúp anh bill nhé.</div>
-            <span class="tag bill">Bill</span>
-          </div>
-          <div class="draft"><b>Đã soạn trả lời cho chị Lan</b>, chuyển trưởng nhóm xử lý. Đang chờ bạn duyệt.</div>
+          <div class="draft"><b>Đã soạn trả lời cho anh Quân</b>, chuyển trưởng nhóm xử lý. Đang chờ bạn duyệt.</div>
+          <div class="desk-foot">6 tin · 1 lần gọi · 4,9 giây · <a href="#demo">Tự chạy thử ↓</a></div>
         </div>
       </div>
     </div>
@@ -479,7 +509,7 @@
       <div class="demo single">
         <h3 class="single-h">Hoặc tự gõ một tin nhắn để thử</h3>
         <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Hermes Desk sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
-        <div class="samples" aria-label="Tin nhắn ví dụ">
+        <div class="samples" role="group" aria-label="Tin nhắn ví dụ">
           <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">Cư dân mới cần lắp mạng</button>
           <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Kỹ thuật hẹn mà không tới</button>
           <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Sale cần bill</button>
@@ -505,7 +535,7 @@
           </figure>
           <figure>
             <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Màn hình Lead Radar chuyển 10 tag Zalo có sẵn thành 4 vai: khách, sale bất động sản, đối tác nhà mạng và khác. 1.594 liên hệ đã có vai.">
-            <figcaption>Tag Zalo có sẵn được chuyển thành vai cho 1.594 liên hệ. Luật cố định quyết trước, AI chỉ đoán với người chưa có tag.</figcaption>
+            <figcaption>Tag Zalo có sẵn được chuyển thành vai cho 1.594 liên hệ. Luật cố định quyết trước, AI chỉ đoán với người chưa có tag. Một số người có nhiều tag, và nhóm SaleTestScript (931) vẫn đang chờ người điều phối xác nhận.</figcaption>
           </figure>
         </div>
       </div>
@@ -526,27 +556,20 @@
       </div>
     </section>
 
-    <section class="block" aria-labelledby="problem">
-      <h2 id="problem">Vấn đề</h2>
+    <section class="block" id="why" aria-labelledby="problem">
+      <h2 id="problem">Vì sao cần Hermes Desk</h2>
       <div class="prose">
         <div class="facts">
           <div class="fact"><div class="n">20–30</div><div class="l">lead mới mỗi ngày cho một điều phối viên vào ngày cao điểm</div></div>
           <div class="fact"><div class="n">13 giờ</div><div class="l">trực tin nhắn, từ 8h sáng đến 9h tối</div></div>
           <div class="fact"><div class="n">3</div><div class="l">loại việc lẫn lộn trong một hộp thư</div></div>
         </div>
-        <p>Trong bất động sản Việt Nam, khách mua và cư dân mới, sale, đối tác dịch vụ và bộ phận thu tiền đều làm việc qua chat. Người điều phối đứng giữa: trả lời khách mới, nhắc sale và kỹ thuật, gửi bill và xoa dịu khiếu nại, tất cả trong cùng một luồng tin nhắn.</p>
-        <p>Khi hộp thư dồn lên, một lead nóng phải chờ cả tiếng, một khách đang bực phải chờ cả ngày, và một hoá đơn bị quên mất. Những con số trên lấy từ chính ngày làm việc của người sáng lập.</p>
-      </div>
-    </section>
-
-    <section class="block" id="why" aria-labelledby="why-h">
-      <h2 id="why-h">Vì sao chọn Hermes Desk</h2>
-      <div class="prose">
+        <p>Trong bất động sản Việt Nam, cư dân, sale, đối tác dịch vụ và bộ phận thu tiền đều liên hệ một người điều phối qua chat. Khi hộp thư dồn lên, lead nóng phải chờ cả tiếng, khách đang bực phải chờ cả ngày, và hoá đơn bị quên mất. Những con số trên lấy từ chính ngày làm việc của người sáng lập.</p>
         <ul class="plain">
-          <li><b>Làm ra từ chính công việc.</b> Người sáng lập làm điều phối mỗi ngày. Hermes Desk đi theo cách các bàn điều phối bất động sản ở Việt Nam thực sự vận hành, không phải một mẫu chăm sóc khách hàng chung chung.</li>
-          <li><b>Tiếng Việt là ưu tiên.</b> Đọc được tin nhắn tiếng Việt viết vội, viết tắt, và trả lời bằng giọng lịch sự mà khách mong đợi.</li>
-          <li><b>Làm việc ngay trên kênh khách đang dùng.</b> Zalo, Messenger và email về chung một bàn, không ai phải đổi ứng dụng.</li>
-          <li><b>Con người luôn quyết định.</b> Hermes Desk soạn và phân luồng. Không gì đến tay khách khi bạn chưa duyệt.</li>
+          <li><b>Làm ra từ chính công việc.</b> Theo đúng cách các bàn điều phối này vận hành, không phải mẫu help-desk chung chung.</li>
+          <li><b>Tiếng Việt là trên hết.</b> Đọc tiếng Việt kiểu chat thường ngày và trả lời bằng giọng lịch sự mà khách mong đợi.</li>
+          <li><b>Ở đúng nơi khách đang nhắn.</b> Zalo, Messenger và email trong một bàn làm việc.</li>
+          <li><b>Con người luôn giữ quyền quyết định.</b> Không gì đến tay khách khi bạn chưa duyệt.</li>
         </ul>
       </div>
     </section>
@@ -609,7 +632,7 @@
         <details><summary>Hermes Desk dùng AI nào?</summary><p>Bản demo trên trang này chạy bằng Claude Haiku qua Claude API. Công cụ nội bộ phân loại liên hệ bằng luật cố định trước và dùng Gemini Flash cho số ít liên hệ chưa có luật; bước này đang được chuyển sang Claude.</p></details>
         <details><summary>Hệ thống xử lý ngôn ngữ nào?</summary><p>Đọc tin nhắn tiếng Việt kiểu chat thường ngày và soạn câu trả lời bằng tiếng Việt. Mỗi tin có thêm một dòng tóm tắt bằng tiếng Anh.</p></details>
         <details><summary>Nội dung tôi gõ vào demo có bị lưu không?</summary><p>Không. Nội dung được gửi tới Claude API để phân loại và soạn trả lời, hiển thị cho bạn, và Hermes Desk không lưu lại. Vui lòng dùng tin nhắn ví dụ, không nhập thông tin thật của khách.</p></details>
-        <details><summary>Bắt đầu như thế nào?</summary><p>Đăng ký tham gia pilot miễn phí. Chúng tôi cài Hermes Desk cho bàn điều phối của bạn, sau đó bạn chọn gói Coordinator hoặc Team nếu muốn dùng tiếp.</p></details>
+        <details><summary>Bắt đầu như thế nào?</summary><p>Đăng ký tham gia pilot miễn phí. Chúng tôi cài Hermes Desk cho bàn điều phối của bạn, sau đó bạn chọn gói Điều phối viên hoặc Đội nhóm nếu muốn dùng tiếp.</p></details>
         <details><summary>Tôi có thể yêu cầu xoá dữ liệu không?</summary><p>Có. Email <a href="mailto:tung@hermesdesk.dev">tung@hermesdesk.dev</a>, chúng tôi xử lý trong vòng 72 giờ. Xem <a href="/privacy.html">trang quyền riêng tư</a>.</p></details>
         <details><summary>Ai đứng sau Hermes Desk?</summary><p>Hộ kinh doanh Trần Việt Tùng, đăng ký tại Việt Nam từ tháng 6/2024, mã số đăng ký 8375250387-001.</p></details>
       </div>
@@ -629,7 +652,7 @@
               <option value="Coordinator">Điều phối viên</option>
               <option value="Sales team lead">Trưởng nhóm sale</option>
               <option value="Sales agent">Nhân viên sale</option>
-              <option value="Developer or project owner">Chủ đầu tư hoặc chủ dự án</option>
+              <option value="Property developer or project owner">Chủ đầu tư hoặc chủ dự án</option>
               <option value="Other">Khác</option>
             </select>
           </label>
@@ -740,6 +763,7 @@
       if (data.ms) out.insertAdjacentHTML('beforeend', '<p class="approve">' + esc(UI2.one((data.ms / 1000).toFixed(1), data.model)) + '</p>');
     } catch (e) {
       const idx = sampleButtons.findIndex((b) => b.dataset.msg === text);
+      if (idx < 0) { out.textContent = UI2.offline; out.className = 'result show error'; return; }
       const ex = saved[idx >= 0 && idx < saved.length ? idx : 0];
       const which = idx >= 0 && idx < saved.length ? 'ví dụ này' : 'ví dụ đầu tiên';
       render(ex, 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho ' + which + ' vào ngày 8/10/2026.');
@@ -749,7 +773,7 @@
   });
 
   // Inbox demo: six messages sorted in one Claude call.
-  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Phân loại hộp thư này', done: (n, s, m, i, o) => 'Đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.' };
+  const UI2 = { cols: { lead: 'Lead mới', complaint: 'Khiếu nại', billing: 'Bill', other: 'Khác' }, urg: { high: 'Gấp', medium: 'Vừa', low: 'Không gấp' }, draft: 'Câu trả lời nháp', approve: 'Duyệt nháp', approved: 'Đã duyệt · chưa gửi (demo)', busy: 'Đang đọc 6 tin nhắn…', again: 'Phân loại lại', run: 'Phân loại hộp thư này', done: (n, s, m, i, o) => 'Đã phân loại ' + n + ' tin trong ' + s + ' giây, chỉ một lần gọi · ' + m + (i ? ' · ' + i + ' token vào, ' + o + ' token ra' : ''), saved: 'Bản demo trực tiếp tạm thời không chạy được. Dưới đây là kết quả thật bản demo đã tạo cho hộp thư này vào ngày 8/10/2026.', fail: 'Chưa phân loại được hộp thư lúc này. Vui lòng thử lại sau.', one: (s, m) => 'Trả lời trong ' + s + ' giây bởi ' + m + '.', offline: 'Bản demo trực tiếp tạm thời không chạy được. Hãy thử một ví dụ ở trên, hoặc thử lại sau.', missing: (n) => ' · ' + n + ' tin chưa được phân loại, hãy thử lại' };
   const INBOX = [
     { from: 'Chị Hà', text: 'Chào em, chị mới nhận căn 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?' },
     { from: 'Anh Quân', text: 'Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?' },
@@ -768,7 +792,9 @@
   const rawPre = document.getElementById('raw-pre');
   list.innerHTML = INBOX.map((m) => '<li><b>' + esc(m.from) + '</b>' + esc(m.text) + '</li>').join('');
   const rank = { high: 0, medium: 1, low: 2 };
+  const motionOK = !window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const renderBoard = (data, note) => {
+    const from = list.hidden ? [] : [...list.children].map((li) => li.getBoundingClientRect());
     const groups = { lead: [], complaint: [], billing: [], other: [] };
     (data.items || []).forEach((it) => {
       const src = INBOX[it.index - 1]; if (!src) return;
@@ -778,15 +804,26 @@
     let k = 0;
     board.innerHTML = cols.map((c) => '<div class="col ' + c + '"><h3>' + esc(UI2.cols[c]) + ' <span>' + groups[c].length + '</span></h3>' +
       groups[c].sort((a, b) => (rank[a.urgency] ?? 3) - (rank[b.urgency] ?? 3)).map((it) =>
-        '<article class="card" style="animation-delay:' + (k++ * 90) + 'ms"><header><b>' + esc(it.src.from) + '</b><span class="urg ' + esc(it.urgency) + '">' + esc(UI2.urg[it.urgency] || it.urgency) + '</span></header>' +
+        '<article class="card" data-i="' + it.index + '" style="animation-delay:' + (k++ * 90) + 'ms"><header><b>' + esc(it.src.from) + '</b><span class="urg ' + esc(it.urgency) + '">' + esc(UI2.urg[it.urgency] || it.urgency) + '</span></header>' +
         '<p class="orig" lang="vi">' + esc(it.src.text) + '</p>' +
         '<p class="sum">' + esc(it.summary_en) + '</p>' +
         '<p class="route">→ ' + esc(labels.route_to[it.route_to] || it.route_to) + '</p>' +
         '<textarea lang="vi" aria-label="' + esc(UI2.draft) + '">' + esc(it.draft_vi) + '</textarea>' +
         '<button type="button" class="ok">' + esc(UI2.approve) + '</button></article>').join('') + '</div>').join('');
-    board.className = 'board show' + (cols.length === 4 ? ' four' : '');
+    board.className = 'board show' + (cols.length === 4 ? ' four' : '') + (from.length && motionOK ? ' fly' : '');
     list.hidden = true;
-    inboxStatus.textContent = note || UI2.done(data.items.length, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens);
+    if (from.length && motionOK && board.animate) {
+      [...board.querySelectorAll('.card')].forEach((card, n) => {
+        const f = from[Number(card.dataset.i) - 1]; if (!f) return;
+        const t = card.getBoundingClientRect();
+        card.animate([
+          { transform: 'translate(' + (f.left - t.left) + 'px,' + (f.top - t.top) + 'px) scale(.92)', opacity: .5 },
+          { transform: 'none', opacity: 1 }
+        ], { duration: 650, delay: n * 110, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+      });
+    }
+    const placed = new Set((data.items || []).map((it) => it.index)).size;
+    inboxStatus.textContent = (note || UI2.done(data.items.length, (data.ms / 1000).toFixed(1), data.model, data.usage && data.usage.input_tokens, data.usage && data.usage.output_tokens)) + (placed < INBOX.length ? UI2.missing(INBOX.length - placed) : '');
     rawPre.textContent = JSON.stringify(data, null, 2);
     raw.hidden = false;
   };
