@@ -54,17 +54,20 @@ const ROUTE_TOOL = {
   },
 };
 
-const json = (status, body) =>
+const json = (status, body, extra = {}) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8" },
+    headers: { "content-type": "application/json; charset=utf-8", ...extra },
   });
 
 export default async (req, context = {}) => {
   if (req.method !== "POST") return json(405, { error: "Use POST." });
 
-  const key = process.env.ANTHROPIC_API_KEY;
+  // Prefer Hermes Desk's own Claude API key. Fall back to Netlify AI Gateway if it is not set.
+  const ownKey = process.env.HERMES_ANTHROPIC_API_KEY;
+  const key = ownKey || process.env.ANTHROPIC_API_KEY;
   if (!key) return json(503, { error: "The demo is offline right now." });
+  const route = ownKey ? "anthropic-api" : "netlify-gateway";
 
   let message = "";
   try {
@@ -80,7 +83,7 @@ export default async (req, context = {}) => {
   if (await overLimit(context.ip)) return json(429, { error: "The demo has reached today's limit." });
 
   // On Netlify, AI Gateway provides ANTHROPIC_BASE_URL alongside the key.
-  const base = (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/+$/, "");
+  const base = (ownKey ? "https://api.anthropic.com" : process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/+$/, "");
   const res = await fetch(`${base}/v1/messages`, {
     method: "POST",
     headers: {
@@ -117,7 +120,7 @@ export default async (req, context = {}) => {
     summary_en: out.summary_en,
     draft_vi: out.draft_vi,
     model: MODEL,
-  });
+  }, { "x-hermes-route": route });
 };
 
 export const config = { path: "/api/classify" };
