@@ -33,7 +33,7 @@ curl -X POST localhost:8888/api/classify \
 
 ## Status
 
-In daily use for 2 months by a pilot group of 10 coordinators from the founder's network (15–20 leads per person per day), connected to Zalo, Messenger and email. Pilot users report about 70% less time to respond to and handle a lead, about 90% fewer missed leads, and 90% of drafts sent as written or with light edits. The internal version runs on the founder's Claude account; the public prototype calls the Claude API.
+In daily use for 2 months by a pilot group of 10 coordinators from the founder's network (15–20 leads per person per day), connected to Zalo, Messenger and email. Pilot users report about 70% less time to respond to and handle a lead, about 90% fewer missed leads, and 90% of drafts sent as written or with light edits. The internal tool sorts contacts with fixed rules first and uses Gemini Flash for the few contacts no rule covers; moving that step onto the Claude API is next. The public prototype in this repo runs on the Claude API, and the system is designed and built with Claude.
 
 ## Contact
 
