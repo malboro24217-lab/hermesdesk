@@ -295,6 +295,7 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .prose code { font-size: 0.9em; background: var(--rule); padding: 1px 5px; border-radius: 4px; }
   .shots { display: grid; gap: 28px; }
   .shots figure { margin: 0; }
   .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
@@ -359,7 +360,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Dùng thử</a><a href="#pricing">Bảng giá</a><a href="#services">Dịch vụ</a><a href="#pilot">Tham gia pilot</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
+    <nav class="top"><a href="#demo">Dùng thử</a><a href="#inside">Sản phẩm</a><a href="#pricing">Bảng giá</a><a href="#pilot">Tham gia pilot</a><a href="/blog/">Blog</a><a href="#contact">Liên hệ</a><a href="/" hreflang="en" lang="en">English</a></nav>
   </header>
 
   <main>
@@ -396,19 +397,6 @@
       </div>
     </div>
 
-    <section class="block" aria-labelledby="problem">
-      <h2 id="problem">Vấn đề</h2>
-      <div class="prose">
-        <div class="facts">
-          <div class="fact"><div class="n">20–30</div><div class="l">lead mới mỗi ngày cho một điều phối viên vào ngày cao điểm</div></div>
-          <div class="fact"><div class="n">13 giờ</div><div class="l">trực tin nhắn, từ 8h sáng đến 9h tối</div></div>
-          <div class="fact"><div class="n">3</div><div class="l">loại việc lẫn lộn trong một hộp thư</div></div>
-        </div>
-        <p>Trong bất động sản Việt Nam, khách mua, sale và bộ phận thu tiền đều làm việc qua chat. Người điều phối đứng giữa: trả lời khách mới, nhắc sale, gửi bill đặt cọc và xoa dịu khiếu nại, tất cả trong cùng một luồng tin nhắn.</p>
-        <p>Khi hộp thư dồn lên, một lead nóng phải chờ cả tiếng, một khách đang bực phải chờ cả ngày, và một hoá đơn bị quên mất. Những con số trên lấy từ chính ngày làm việc của người sáng lập.</p>
-      </div>
-    </section>
-
     <section class="block" aria-labelledby="how">
       <h2 id="how">Cách hoạt động</h2>
       <ol class="steps">
@@ -425,6 +413,70 @@
           <p>Hệ thống soạn câu trả lời theo giọng của người điều phối. Không gì được gửi đi khi chưa có người duyệt.</p>
         </li>
       </ol>
+    </section>
+
+    <section class="block" id="demo" aria-labelledby="try">
+      <h2 id="try">Dùng thử bản mẫu</h2>
+      <div class="demo">
+        <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Claude sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
+        <div class="samples" aria-label="Tin nhắn ví dụ">
+          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">Cư dân mới cần lắp mạng</button>
+          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Kỹ thuật hẹn mà không tới</button>
+          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Sale cần bill</button>
+        </div>
+        <label for="msg" class="hint">Tin nhắn của khách</label>
+        <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
+        <div class="row">
+          <button type="button" class="run" id="run">Phân loại tin nhắn</button>
+          <span class="hint">Chạy trực tiếp trên Claude API. Đừng nhập thông tin cá nhân thật.</span>
+        </div>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="block" id="inside" aria-labelledby="inside-h">
+      <h2 id="inside-h">Bên trong công cụ nội bộ</h2>
+      <div>
+        <p class="shots-intro">Hermes Desk ra đời từ Lead Radar, công cụ người sáng lập tự làm cho bàn điều phối của mình. Hai màn hình dưới đây dùng dữ liệu thật. Tên khách chỉ giữ chữ cái đầu, số điện thoại đã ẩn. Phần lớn khách ở bàn này do sale bất động sản giới thiệu, cần các dịch vụ như lắp mạng internet cho căn hộ mới.</p>
+        <div class="shots">
+          <figure>
+            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Màn hình Lead Radar liệt kê 13 lead mới từ Zalo từ 28 đến 30/9/2026, kèm nhu cầu, độ nóng và hạn trả lời. Sổ có 629 hồ sơ.">
+            <figcaption>Lead đang chờ trả lời, hạn trả lời theo độ nóng: nóng 30 phút, ấm 4 giờ, nguội 24 giờ.</figcaption>
+          </figure>
+          <figure>
+            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Màn hình Lead Radar chuyển 10 tag Zalo có sẵn thành 4 vai: khách, sale bất động sản, đối tác nhà mạng và khác. 1.594 liên hệ đã có vai.">
+            <figcaption>Tag Zalo có sẵn được chuyển thành vai cho 1.594 liên hệ. Luật cố định quyết trước, AI chỉ đoán với người chưa có tag.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="built">
+      <h2 id="built">Xây dựng trên Claude</h2>
+      <div class="prose">
+        <ul class="plain">
+          <li><b>Mô hình.</b> Bản demo trên trang này gọi Claude Haiku (<code>claude-haiku-5-5</code>) qua Claude Messages API, từ một hàm serverless, bằng tài khoản Claude API riêng của Hermes Desk.</li>
+          <li><b>Kết quả có cấu trúc.</b> Claude trả lời qua đúng một công cụ, <code>route_message</code>, gồm năm trường: loại tin, mức gấp, chuyển cho ai, tóm tắt một dòng bằng tiếng Anh và câu trả lời nháp bằng tiếng Việt. Nếu câu trả lời không đúng khuôn này, hàm trả về lỗi thay vì bịa ra kết quả.</li>
+          <li><b>Giới hạn an toàn.</b> Mỗi tin tối đa 600 ký tự, số lượt dùng bị giới hạn theo người dùng và theo ngày, và Claude được dặn không bao giờ hứa giá, tình trạng còn hàng hay ngày giờ mà người điều phối chưa đưa ra.</li>
+          <li><b>Mọi câu trả lời đều do người duyệt.</b> AI không bao giờ tự nói chuyện với khách.</li>
+          <li><b>Xây dựng cùng Claude.</b> Phần lớn thiết kế hệ thống, bộ đồng bộ Zalo và sổ quản lý lead của công cụ nội bộ được viết cùng Claude.</li>
+          <li><b>Hiện tại và tiếp theo.</b> Công cụ nội bộ phân loại liên hệ bằng luật cố định trước, như tag Zalo và danh bạ đã biết; số ít liên hệ chưa có luật nào khớp được phân loại bằng Gemini Flash. Bước tiếp theo là chuyển phần phân loại và soạn trả lời của công cụ nội bộ sang Claude API.</li>
+          <li><b>Mã nguồn.</b> Mã của bản demo được công khai trên <a href="https://github.com/malboro24217-lab/hermesdesk">GitHub</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="problem">
+      <h2 id="problem">Vấn đề</h2>
+      <div class="prose">
+        <div class="facts">
+          <div class="fact"><div class="n">20–30</div><div class="l">lead mới mỗi ngày cho một điều phối viên vào ngày cao điểm</div></div>
+          <div class="fact"><div class="n">13 giờ</div><div class="l">trực tin nhắn, từ 8h sáng đến 9h tối</div></div>
+          <div class="fact"><div class="n">3</div><div class="l">loại việc lẫn lộn trong một hộp thư</div></div>
+        </div>
+        <p>Trong bất động sản Việt Nam, khách mua và cư dân mới, sale, đối tác dịch vụ và bộ phận thu tiền đều làm việc qua chat. Người điều phối đứng giữa: trả lời khách mới, nhắc sale và kỹ thuật, gửi bill và xoa dịu khiếu nại, tất cả trong cùng một luồng tin nhắn.</p>
+        <p>Khi hộp thư dồn lên, một lead nóng phải chờ cả tiếng, một khách đang bực phải chờ cả ngày, và một hoá đơn bị quên mất. Những con số trên lấy từ chính ngày làm việc của người sáng lập.</p>
+      </div>
     </section>
 
     <section class="block" id="why" aria-labelledby="why-h">
@@ -448,54 +500,6 @@
           <div class="fact"><div class="n">−70%</div><div class="l">thời gian phản hồi và xử lý một lead</div></div>
         </div>
         <p>Nhóm pilot gồm 10 điều phối viên trong mạng lưới của người sáng lập, mỗi người xử lý 15–20 lead mỗi ngày. Họ cũng báo lại số lead bị bỏ sót giảm khoảng 90%. Các con số này do chính người dùng pilot tự báo, so sánh công việc trước và sau khi dùng Hermes Desk.</p>
-      </div>
-    </section>
-
-    <section class="block" id="demo" aria-labelledby="try">
-      <h2 id="try">Dùng thử bản mẫu</h2>
-      <div class="demo">
-        <p class="hint">Chọn một ví dụ hoặc gõ tin nhắn của khách. Claude sẽ phân loại và soạn câu trả lời. Không có gì được gửi đi.</p>
-        <div class="samples" aria-label="Tin nhắn ví dụ">
-          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">Cư dân mới cần lắp mạng</button>
-          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Kỹ thuật hẹn mà không tới</button>
-          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Sale cần bill</button>
-        </div>
-        <label for="msg" class="hint">Tin nhắn của khách</label>
-        <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
-        <div class="row">
-          <button type="button" class="run" id="run">Phân loại tin nhắn</button>
-          <span class="hint">Chạy trực tiếp trên Claude API. Đừng nhập thông tin cá nhân thật.</span>
-        </div>
-        <div class="result" id="result" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="built">
-      <h2 id="built">Xây dựng trên Claude</h2>
-      <div class="prose">
-        <ul class="plain">
-          <li>Bản demo trên trang này dùng Claude (Claude Haiku) để phân loại và soạn trả lời, chạy qua tài khoản Claude API riêng của Hermes Desk.</li>
-          <li>Hermes Desk được thiết kế và xây dựng cùng Claude. Phần lớn thiết kế hệ thống, bộ đồng bộ Zalo và sổ quản lý lead của công cụ nội bộ được viết cùng Claude.</li>
-          <li>Hiện tại, công cụ nội bộ phân loại liên hệ bằng luật cố định trước, như tag Zalo và danh bạ đã biết. Số ít liên hệ chưa có luật nào khớp được phân loại bằng Gemini Flash.</li>
-          <li>Mọi câu trả lời đều do người duyệt. AI không bao giờ tự nói chuyện với khách.</li>
-          <li>Bước tiếp theo: chuyển phần phân loại và soạn trả lời của công cụ nội bộ sang Claude API, rồi mở cho thêm điều phối viên và đội sale qua chương trình pilot.</li>
-        </ul>
-      </div>
-    </section>
-    <section class="block" id="inside" aria-labelledby="inside-h">
-      <h2 id="inside-h">Bên trong công cụ nội bộ</h2>
-      <div>
-        <p class="shots-intro">Hermes Desk ra đời từ Lead Radar, công cụ người sáng lập tự làm cho bàn điều phối của mình. Hai màn hình dưới đây dùng dữ liệu thật. Tên khách chỉ giữ chữ cái đầu, số điện thoại đã ẩn. Phần lớn khách ở bàn này do sale bất động sản giới thiệu, cần các dịch vụ như lắp mạng internet cho căn hộ mới.</p>
-        <div class="shots">
-          <figure>
-            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Màn hình Lead Radar liệt kê 13 lead mới từ Zalo từ 28 đến 30/9/2026, kèm nhu cầu, độ nóng và hạn trả lời. Sổ có 629 hồ sơ.">
-            <figcaption>Lead đang chờ trả lời, hạn trả lời theo độ nóng: nóng 30 phút, ấm 4 giờ, nguội 24 giờ.</figcaption>
-          </figure>
-          <figure>
-            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Màn hình Lead Radar chuyển 10 tag Zalo có sẵn thành 4 vai: khách, sale bất động sản, đối tác nhà mạng và khác. 1.594 liên hệ đã có vai.">
-            <figcaption>Tag Zalo có sẵn được chuyển thành vai cho 1.594 liên hệ. Luật cố định quyết trước, AI chỉ đoán với người chưa có tag.</figcaption>
-          </figure>
-        </div>
       </div>
     </section>
 
@@ -535,37 +539,6 @@
           </div>
         </div>
         <p class="hint plans-note">Giá tính bằng đồng Việt Nam, thanh toán theo tháng. Mọi đội đều bắt đầu từ chương trình pilot. <a href="#pilot">Đăng ký tham gia</a>.</p>
-      </div>
-    </section>
-
-    <section class="block" id="services" aria-labelledby="services-h">
-      <h2 id="services-h">Dịch vụ</h2>
-      <div>
-        <div class="plans two">
-          <div class="plan">
-            <h3>Cài đặt Hermes Desk cho đội sale</h3>
-            <p class="price quote">Báo giá theo đội</p>
-            <p class="for">Kết nối Zalo, Messenger, email và tinh chỉnh giọng trả lời cho từng đội.</p>
-            <ul>
-              <li>Chuyển tag Zalo và danh bạ sẵn có thành vai: khách hàng, sale, đối tác</li>
-              <li>Tin nhắn mới được đồng bộ vào bàn điều phối mỗi 5 phút, khách nhắn lại không bị tạo trùng hồ sơ</li>
-              <li>Hạn phản hồi theo độ nóng của lead: nóng 30 phút, ấm 4 giờ, nguội 24 giờ</li>
-              <li>Giọng trả lời học từ chính những tin đội bạn đã gửi, không viết lại từ đầu</li>
-            </ul>
-          </div>
-          <div class="plan">
-            <h3>Thiết kế quy trình AI riêng cho bàn điều phối</h3>
-            <p class="price quote">Báo giá theo bàn điều phối</p>
-            <p class="for">Phân luồng, mẫu trả lời, quy tắc chuyển người xử lý, thiết kế theo đúng cách bàn của bạn vận hành.</p>
-            <ul>
-              <li>Phân luồng viết thành luật một dòng dễ đọc. AI chỉ xử lý ca chưa có luật và đánh dấu để bạn xem</li>
-              <li>Mẫu trả lời cho từng cặp vai và tình huống, rút từ hội thoại thật của bạn</li>
-              <li>Bộ lọc theo vai: khách không bao giờ thấy hoa hồng đối tác, đối tác không thấy khoản khách đã trả</li>
-              <li>Quy tắc chuyển người: khiếu nại, tiền bạc và mọi ca bất thường luôn do người xử lý</li>
-            </ul>
-          </div>
-        </div>
-        <p class="hint plans-note">Mọi lần cài đặt đều bắt đầu ở chế độ chỉ soạn nháp: không gì được gửi đi khi chưa có người duyệt. <a href="#contact">Liên hệ</a> để trao đổi về bàn điều phối của bạn.</p>
       </div>
     </section>
 

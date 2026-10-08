@@ -295,6 +295,7 @@
   .plan ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
   .plan li { margin-bottom: 6px; }
   .plans-note { margin: 20px 0 0; font-size: 0.9375rem; }
+  .prose code { font-size: 0.9em; background: var(--rule); padding: 1px 5px; border-radius: 4px; }
   .shots { display: grid; gap: 28px; }
   .shots figure { margin: 0; }
   .shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
@@ -359,7 +360,7 @@
       </svg>
       Hermes Desk
     </a>
-    <nav class="top"><a href="#demo">Try it</a><a href="#pricing">Pricing</a><a href="#services">Services</a><a href="#pilot">Join the pilot</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+    <nav class="top"><a href="#demo">Try it</a><a href="#inside">Product</a><a href="#pricing">Pricing</a><a href="#pilot">Join the pilot</a><a href="/blog/">Blog</a><a href="#contact">Contact</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
   </header>
 
   <main>
@@ -396,19 +397,6 @@
       </div>
     </div>
 
-    <section class="block" aria-labelledby="problem">
-      <h2 id="problem">The problem</h2>
-      <div class="prose">
-        <div class="facts">
-          <div class="fact"><div class="n">20–30</div><div class="l">new leads a day for one coordinator on busy days</div></div>
-          <div class="fact"><div class="n">13 hrs</div><div class="l">of chat coverage, 8 am to 9 pm</div></div>
-          <div class="fact"><div class="n">3</div><div class="l">kinds of work mixed in one inbox</div></div>
-        </div>
-        <p>In Vietnamese real estate, buyers, sales agents and billing all run through chat. One coordinator sits in the middle: answering new buyers, chasing agents, sending deposit bills and calming complaints, all in the same thread of messages.</p>
-        <p>When that inbox gets busy, a hot lead waits an hour, an angry buyer waits a day, and a bill gets forgotten. These numbers come from our founder's own working day.</p>
-      </div>
-    </section>
-
     <section class="block" aria-labelledby="how">
       <h2 id="how">How it works</h2>
       <ol class="steps">
@@ -425,6 +413,70 @@
           <p>It writes a reply in the coordinator's tone. Nothing is sent until a person approves it.</p>
         </li>
       </ol>
+    </section>
+
+    <section class="block" id="demo" aria-labelledby="try">
+      <h2 id="try">Try the prototype</h2>
+      <div class="demo">
+        <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
+        <div class="samples" aria-label="Example messages">
+          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">New resident wants internet</button>
+          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Technician never came</button>
+          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Agent needs a bill</button>
+        </div>
+        <label for="msg" class="hint">Customer message</label>
+        <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
+        <div class="row">
+          <button type="button" class="run" id="run">Sort this message</button>
+          <span class="hint">Runs live on the Claude API. Do not paste real personal details.</span>
+        </div>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="block" id="inside" aria-labelledby="inside-h">
+      <h2 id="inside-h">Inside our internal tool</h2>
+      <div>
+        <p class="shots-intro">Hermes Desk grew out of Lead Radar, the tool the founder built for his own desk. These two screens show its real data. Customer names are cut to initials and phone numbers are hidden. Most customers on this desk are referred by real estate sales agents and need services such as internet installation in their new apartments.</p>
+        <div class="shots">
+          <figure>
+            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Lead Radar screen listing 13 new leads from Zalo between 28 and 30 September 2026, each with its need, heat level and reply deadline. The ledger holds 629 records.">
+            <figcaption>Leads waiting for a reply, with deadlines set by how hot each lead is: 30 minutes for hot, 4 hours for warm, 24 hours for cold.</figcaption>
+          </figure>
+          <figure>
+            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Lead Radar screen mapping ten existing Zalo tags to four roles: customer, real estate sales agent, internet provider partner and other. 1,594 contacts have a role.">
+            <figcaption>Existing Zalo tags turned into roles for 1,594 contacts. Fixed rules decide first; AI only guesses for contacts with no tag.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="built">
+      <h2 id="built">Built with Claude</h2>
+      <div class="prose">
+        <ul class="plain">
+          <li><b>Model.</b> The prototype on this page calls Claude Haiku (<code>claude-haiku-5-5</code>) through the Claude Messages API, from a serverless function, on Hermes Desk's own Claude API account.</li>
+          <li><b>Structured output.</b> Claude answers through a single tool, <code>route_message</code>, which returns five fields: category, urgency, who to route to, a one-line English summary and a Vietnamese draft reply. If the answer does not come back in that shape, the function returns an error rather than a made-up result.</li>
+          <li><b>Guardrails.</b> Messages are capped at 600 characters, usage is rate-limited per visitor and per day, and Claude is told never to promise prices, availability or dates the coordinator has not given.</li>
+          <li><b>A person approves every reply.</b> The AI never speaks to a customer on its own.</li>
+          <li><b>Built with Claude.</b> The system design, the Zalo sync and the lead ledger behind our internal tool were largely written with Claude.</li>
+          <li><b>Today and next.</b> The internal tool sorts contacts with fixed rules first, such as Zalo tags and known contact lists, and the few contacts no rule covers are classified by Gemini Flash. Next, we move classification and drafting in the internal tool onto the Claude API.</li>
+          <li><b>Source.</b> The prototype code is public on <a href="https://github.com/malboro24217-lab/hermesdesk">GitHub</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="problem">
+      <h2 id="problem">The problem</h2>
+      <div class="prose">
+        <div class="facts">
+          <div class="fact"><div class="n">20–30</div><div class="l">new leads a day for one coordinator on busy days</div></div>
+          <div class="fact"><div class="n">13 hrs</div><div class="l">of chat coverage, 8 am to 9 pm</div></div>
+          <div class="fact"><div class="n">3</div><div class="l">kinds of work mixed in one inbox</div></div>
+        </div>
+        <p>In Vietnamese real estate, buyers and new residents, sales agents, service partners and billing all run through chat. One coordinator sits in the middle: answering new customers, chasing agents and installers, sending bills and calming complaints, all in the same thread of messages.</p>
+        <p>When that inbox gets busy, a hot lead waits an hour, an angry buyer waits a day, and a bill gets forgotten. These numbers come from our founder's own working day.</p>
+      </div>
     </section>
 
     <section class="block" id="why" aria-labelledby="why-h">
@@ -448,54 +500,6 @@
           <div class="fact"><div class="n">−70%</div><div class="l">time to respond to and handle a lead</div></div>
         </div>
         <p>The pilot group is 10 coordinators from the founder's own network, each handling 15–20 leads a day. They also report about 90% fewer missed leads. These figures are reported by the pilot users themselves, comparing their work before and after Hermes Desk.</p>
-      </div>
-    </section>
-
-    <section class="block" id="demo" aria-labelledby="try">
-      <h2 id="try">Try the prototype</h2>
-      <div class="demo">
-        <p class="hint">Pick an example or type a customer message in Vietnamese. Claude sorts it and drafts a reply. Nothing is sent to anyone.</p>
-        <div class="samples" aria-label="Example messages">
-          <button type="button" data-msg="Chào em, chị mới nhận căn hộ 2 phòng ngủ, bên sale giới thiệu qua em. Lắp wifi Mesh cho cả nhà thì giá bao nhiêu, mai qua lắp được không em?">New resident wants internet</button>
-          <button type="button" data-msg="Hẹn kỹ thuật qua lắp mạng từ sáng hôm qua mà tới giờ chưa thấy ai, gọi hoài không bắt máy. Làm ăn kiểu gì vậy em?">Technician never came</button>
-          <button type="button" data-msg="Em ơi khách căn C08 anh giới thiệu lắp mạng xong hôm qua rồi, gửi giúp anh hoá đơn cho khách trước 5h chiều nay nhé.">Agent needs a bill</button>
-        </div>
-        <label for="msg" class="hint">Customer message</label>
-        <textarea id="msg" maxlength="600" placeholder="Ví dụ: Căn góc còn không em?"></textarea>
-        <div class="row">
-          <button type="button" class="run" id="run">Sort this message</button>
-          <span class="hint">Runs live on the Claude API. Do not paste real personal details.</span>
-        </div>
-        <div class="result" id="result" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="built">
-      <h2 id="built">Built with Claude</h2>
-      <div class="prose">
-        <ul class="plain">
-          <li>The prototype on this page runs its sorting and drafting step on Claude (Claude Haiku), through Hermes Desk's own Claude API account.</li>
-          <li>We design and build Hermes Desk with Claude. The system design, the Zalo sync and the lead ledger behind our internal tool were largely written with Claude.</li>
-          <li>Today, the internal tool sorts contacts with fixed rules first, such as Zalo tags and known contact lists. The few contacts no rule covers are classified by Gemini Flash.</li>
-          <li>A person approves every reply. The AI never speaks to a customer on its own.</li>
-          <li>Next, we move classification and drafting in the internal tool onto the Claude API and open it to more coordinators and sales teams through the pilot.</li>
-        </ul>
-      </div>
-    </section>
-    <section class="block" id="inside" aria-labelledby="inside-h">
-      <h2 id="inside-h">Inside our internal tool</h2>
-      <div>
-        <p class="shots-intro">Hermes Desk grew out of Lead Radar, the tool the founder built for his own desk. These two screens show its real data. Customer names are cut to initials and phone numbers are hidden. Most customers on this desk are referred by real estate sales agents and need services such as internet installation in their new apartments.</p>
-        <div class="shots">
-          <figure>
-            <img src="/img/leadradar-radar.png" width="1716" height="1184" loading="lazy" alt="Lead Radar screen listing 13 new leads from Zalo between 28 and 30 September 2026, each with its need, heat level and reply deadline. The ledger holds 629 records.">
-            <figcaption>Leads waiting for a reply, with deadlines set by how hot each lead is: 30 minutes for hot, 4 hours for warm, 24 hours for cold.</figcaption>
-          </figure>
-          <figure>
-            <img src="/img/leadradar-roles.png" width="1716" height="974" loading="lazy" alt="Lead Radar screen mapping ten existing Zalo tags to four roles: customer, real estate sales agent, internet provider partner and other. 1,594 contacts have a role.">
-            <figcaption>Existing Zalo tags turned into roles for 1,594 contacts. Fixed rules decide first; AI only guesses for contacts with no tag.</figcaption>
-          </figure>
-        </div>
       </div>
     </section>
 
@@ -535,37 +539,6 @@
           </div>
         </div>
         <p class="hint plans-note">Prices in Vietnamese đồng, billed monthly. Every team starts with the pilot. <a href="#pilot">Request a spot</a>.</p>
-      </div>
-    </section>
-
-    <section class="block" id="services" aria-labelledby="services-h">
-      <h2 id="services-h">Services</h2>
-      <div>
-        <div class="plans two">
-          <div class="plan">
-            <h3>Hermes Desk setup for your sales team</h3>
-            <p class="price quote">Quoted per team</p>
-            <p class="for">We connect Zalo, Messenger and email and tune the reply voice for each team.</p>
-            <ul>
-              <li>Map your existing Zalo tags and contacts to roles: customer, sales agent, partner</li>
-              <li>New messages synced into the desk every 5 minutes, with no duplicates when a customer writes again</li>
-              <li>Reply timers by lead heat: 30 minutes for hot, 4 hours for warm, 24 hours for cold</li>
-              <li>Reply voice learned from messages your team has already sent, not written from scratch</li>
-            </ul>
-          </div>
-          <div class="plan">
-            <h3>Custom AI workflow for your coordination desk</h3>
-            <p class="price quote">Quoted per desk</p>
-            <p class="for">Routing, reply templates and handover rules, designed around how your desk works.</p>
-            <ul>
-              <li>Routing written as plain one-line rules. AI only handles the cases no rule covers, and flags them for you</li>
-              <li>A reply template for each pair of role and event, drawn from your real conversations</li>
-              <li>Per-role guardrails: a customer never sees partner commissions, a partner never sees customer payments</li>
-              <li>Handover rules for complaints, money and anything unusual, which always go to a person</li>
-            </ul>
-          </div>
-        </div>
-        <p class="hint plans-note">Every setup starts in draft-only mode: nothing is sent until a person approves it. <a href="#contact">Talk to us</a> about your desk.</p>
       </div>
     </section>
 
