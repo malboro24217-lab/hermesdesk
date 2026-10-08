@@ -39,7 +39,9 @@ export default async (req) => {
   if (message.length > MAX_INPUT)
     return json(400, { error: `Keep the message under ${MAX_INPUT} characters.` });
 
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  // On Netlify, AI Gateway provides ANTHROPIC_BASE_URL alongside the key.
+  const base = (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/+$/, "");
+  const res = await fetch(`${base}/v1/messages`, {
     method: "POST",
     headers: {
       "x-api-key": key,
@@ -54,7 +56,10 @@ export default async (req) => {
     }),
   });
 
-  if (!res.ok) return json(502, { error: "Claude could not process this message. Try again in a moment." });
+  if (!res.ok) {
+    console.error("Claude API error", res.status, (await res.text()).slice(0, 500));
+    return json(502, { error: "Claude could not process this message. Try again in a moment." });
+  }
 
   const data = await res.json();
   const text = (data.content || []).map((b) => b.text || "").join("").trim();
