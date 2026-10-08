@@ -32,7 +32,7 @@ curl -X POST localhost:8888/api/classify \
 
 ## Status
 
-In daily use on the founder's coordination desk for 4 weeks (with a second coordinator), connected to Zalo, Messenger and email. Opening to pilot teams.
+In daily use for 2 months by a pilot group of 10 coordinators from the founder's network (15–20 leads per person per day), connected to Zalo, Messenger and email. Pilot users report about 70% less time to respond to and handle a lead, about 90% fewer missed leads, and 90% of drafts sent as written or with light edits. The internal version runs on the founder's Claude account; the public prototype calls the Claude API.
 
 ## Contact
 
